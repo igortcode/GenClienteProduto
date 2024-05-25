@@ -1,6 +1,6 @@
 ﻿using GCP.Core.Entities.Generic;
 
-namespace GCP.Application.Interfaces.Generic
+namespace GCP.App.Interfaces.Generic
 {
     public interface IGenericRepository<T> where T : Entity
     {

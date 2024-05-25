@@ -1,7 +1,6 @@
 ﻿using Dapper;
-using GCP.Application.Interfaces.Generic;
-using GCP.Application.Interfaces.Repository;
-using GCP.Application.Settings;
+using GCP.App.Interfaces.Repository;
+using GCP.App.Settings;
 using GCP.Core.Entities;
 using Microsoft.Extensions.Options;
 
@@ -23,6 +22,22 @@ namespace GCP.Repository.Repository
             finally
             {
                 DbConnection.Close();
+            }
+        }
+
+        public bool ExistByCode(string? code)
+        {
+            var sql = "SELECT COUNT(1) FROM Produto WHERE Codigo = @Code";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.ExecuteScalar<int>(sql, new {Code = code}) > 0;
+            }
+            finally
+            {
+                DbConnection?.Close();
             }
         }
 

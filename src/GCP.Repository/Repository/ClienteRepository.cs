@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using GCP.Application.Interfaces.Repository;
-using GCP.Application.Settings;
+using GCP.App.Interfaces.Repository;
+using GCP.App.Settings;
 using GCP.Core.Entities;
 using Microsoft.Extensions.Options;
 

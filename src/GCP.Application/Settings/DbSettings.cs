@@ -1,4 +1,4 @@
-﻿namespace GCP.Application.Settings
+﻿namespace GCP.App.Settings
 {
     public class DbSettings
     {

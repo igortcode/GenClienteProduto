@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Domain", "2-Domain", "{CC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GCP.Core", "src\GCP.Core\GCP.Core.csproj", "{A332CE53-E101-4F38-9B5F-C134E248DBAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GCP.Application", "src\GCP.Application\GCP.Application.csproj", "{45A3D683-3B8C-4E4D-9A91-2A4B0B3684B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GCP.App", "src\GCP.Application\GCP.App.csproj", "{45A3D683-3B8C-4E4D-9A91-2A4B0B3684B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCP.Repository", "src\GCP.Repository\GCP.Repository.csproj", "{18806CE9-5AAA-4053-B710-16EA29ECE153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GCP.Repository", "src\GCP.Repository\GCP.Repository.csproj", "{18806CE9-5AAA-4053-B710-16EA29ECE153}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Repository", "3-Repository", "{2E6DC4A6-9B71-4C1F-B8E3-B7B8FE0E4483}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Infra", "3-Infra", "{2E6DC4A6-9B71-4C1F-B8E3-B7B8FE0E4483}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

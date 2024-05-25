@@ -1,6 +1,6 @@
 ﻿using GCP.Core.Entities;
 
-namespace GCP.Application.Interfaces.Repository
+namespace GCP.App.Interfaces.Repository
 {
     public interface IProdutosXVendaRepository
     {
