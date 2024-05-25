@@ -6,7 +6,7 @@ namespace GCP.Application.Interfaces.Generic
     {
         int Add(T entity);
         int Update(T entity);
-        T GetById(int id);
+        T? GetById(int id);
         IEnumerable<T> GetAll();
         int Remove(int id);
     }
