@@ -6,7 +6,7 @@ namespace GCP.Application.Interfaces.Repository
     {
         int Add(ProdutosXVenda produtosXVenda);
         int Remove(int idProduto, int idVenda);
-        ProdutosXVenda GetById(int id);
+        ProdutosXVenda? GetById(int id);
         IEnumerable<ProdutosXVenda> GetAll(int idVenda);
     }
 }

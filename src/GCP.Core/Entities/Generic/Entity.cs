@@ -4,8 +4,8 @@ namespace GCP.Core.Entities.Generic
 {
     public abstract class Entity
     {
-        protected int Id { get; set; }
-        protected DateTime DataInclusao { get; private set; }
+        public int Id { get; set; }
+        public DateTime DataInclusao { get; private set; }
 
         public Entity()
         {
