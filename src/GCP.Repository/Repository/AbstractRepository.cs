@@ -1,4 +1,4 @@
-﻿using GCP.Application.Settings;
+﻿using GCP.App.Settings;
 using Microsoft.Extensions.Options;
 using Npgsql;
 using System.Data;
