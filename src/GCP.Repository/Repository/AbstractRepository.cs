@@ -9,9 +9,9 @@ namespace GCP.Repository.Repository
     {
         private readonly DbSettings _dbSetting;
         protected IDbConnection DbConnection;
-        protected AbstractRepository(IOptions<DbSettings> options)
+        protected AbstractRepository(DbSettings options)
         {
-            _dbSetting = options.Value;
+            _dbSetting = options;
             DbConnection = GetConnection(_dbSetting.ConnectionString);
             DbConnection.Close();
         }
