@@ -18,4 +18,8 @@
     <ProjectReference Include="..\GCP.Repository\GCP.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\igors\source\repos\GenClienteProduto\src\GCP.Front\.editorconfig" />
+  </ItemGroup>
+
 </Project>

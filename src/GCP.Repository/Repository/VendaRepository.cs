@@ -8,7 +8,7 @@ namespace GCP.Repository.Repository
 {
     public class VendaRepository : AbstractRepository, IVendaRepository
     {
-        public VendaRepository(IOptions<DbSettings> options) : base(options)
+        public VendaRepository(DbSettings options) : base(options)
         {
         }
 

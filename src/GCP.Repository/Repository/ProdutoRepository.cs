@@ -8,7 +8,7 @@ namespace GCP.Repository.Repository
 {
     public class ProdutoRepository : AbstractRepository, IProdutoRepository
     {
-        public ProdutoRepository(IOptions<DbSettings> options) : base(options) { }
+        public ProdutoRepository(DbSettings options) : base(options) { }
 
         public int Add(Produto entity)
         {

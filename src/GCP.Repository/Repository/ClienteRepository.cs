@@ -8,7 +8,7 @@ namespace GCP.Repository.Repository
 {
     public class ClienteRepository : AbstractRepository, IClienteRepository
     {
-        public ClienteRepository(IOptions<DbSettings> options) : base(options)
+        public ClienteRepository(DbSettings options) : base(options)
         {
         }
 

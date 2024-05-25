@@ -2,8 +2,10 @@
 using GCP.App.Interfaces.Services;
 using GCP.App.Profiles;
 using GCP.App.Services;
+using GCP.App.Settings;
 using GCP.Repository.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 
 namespace GCP.Front.Configurations
 {
@@ -22,6 +24,12 @@ namespace GCP.Front.Configurations
             services.AddScoped<IProdutoServices, ProdutoServices>();
             #endregion
 
+            var dbSettings = new DbSettings
+            {
+                ConnectionString = ConfigurationManager.AppSettings["ConnectionString"]
+            };
+
+            services.AddSingleton(dbSettings);
 
             services.AddAutoMapper(typeof(MapProfile));
 
