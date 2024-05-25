@@ -30,44 +30,49 @@
         {
             tabControlProduto = new TabControl();
             tabList = new TabPage();
-            tabAdd = new TabPage();
-            tabEdit = new TabPage();
-            dtGridProduto = new DataGridView();
+            btnPesquisa = new Button();
+            txtSearch = new TextBox();
             btnIrCadastrar = new Button();
-            btnCadastrar = new Button();
-            btnVotarCad = new Button();
-            txtNome = new TextBox();
-            label1 = new Label();
+            dtGridProduto = new DataGridView();
+            tabAdd = new TabPage();
+            txtQtdNu = new NumericUpDown();
+            txtPrecoNu = new NumericUpDown();
+            label5 = new Label();
+            txtDesc = new RichTextBox();
+            label4 = new Label();
+            label3 = new Label();
             label2 = new Label();
             txtCodigo = new TextBox();
-            label3 = new Label();
-            txtPreco = new TextBox();
-            label4 = new Label();
-            txtQuantidade = new TextBox();
-            richTextBox1 = new RichTextBox();
-            label5 = new Label();
-            gbAlterar = new GroupBox();
+            label1 = new Label();
+            txtNome = new TextBox();
+            btnVotarCad = new Button();
+            btnCadastrar = new Button();
+            tabEdit = new TabPage();
             cBAlterar = new CheckBox();
-            btnSalvar = new Button();
-            btnVoltarEdit = new Button();
+            gbAlterar = new GroupBox();
+            btnRemover = new Button();
+            txtQtdNuAlt = new NumericUpDown();
+            txtPrecoAltNu = new NumericUpDown();
             label6 = new Label();
             txtDescAlt = new RichTextBox();
             label7 = new Label();
-            txtQtdAlt = new TextBox();
             label8 = new Label();
-            txtPrecoAlt = new TextBox();
             label9 = new Label();
             txtCodigoAlt = new TextBox();
             label10 = new Label();
             txtNomeAlt = new TextBox();
-            txtSearch = new TextBox();
-            btnPesquisa = new Button();
+            btnVoltarEdit = new Button();
+            btnSalvar = new Button();
             tabControlProduto.SuspendLayout();
             tabList.SuspendLayout();
-            tabAdd.SuspendLayout();
-            tabEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtGridProduto).BeginInit();
+            tabAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtQtdNu).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPrecoNu).BeginInit();
+            tabEdit.SuspendLayout();
             gbAlterar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtQtdNuAlt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPrecoAltNu).BeginInit();
             SuspendLayout();
             // 
             // tabControlProduto
@@ -95,14 +100,51 @@
             tabList.Text = "Produtos";
             tabList.UseVisualStyleBackColor = true;
             // 
+            // btnPesquisa
+            // 
+            btnPesquisa.Location = new Point(687, 15);
+            btnPesquisa.Name = "btnPesquisa";
+            btnPesquisa.Size = new Size(75, 23);
+            btnPesquisa.TabIndex = 3;
+            btnPesquisa.Text = "Pesquisar";
+            btnPesquisa.UseVisualStyleBackColor = true;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(525, 16);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(146, 23);
+            txtSearch.TabIndex = 2;
+            // 
+            // btnIrCadastrar
+            // 
+            btnIrCadastrar.Location = new Point(687, 369);
+            btnIrCadastrar.Name = "btnIrCadastrar";
+            btnIrCadastrar.Size = new Size(75, 23);
+            btnIrCadastrar.TabIndex = 1;
+            btnIrCadastrar.Text = "Cadastrar";
+            btnIrCadastrar.UseVisualStyleBackColor = true;
+            btnIrCadastrar.Click += btnIrCadastrar_Click;
+            // 
+            // dtGridProduto
+            // 
+            dtGridProduto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtGridProduto.Location = new Point(6, 46);
+            dtGridProduto.Name = "dtGridProduto";
+            dtGridProduto.ReadOnly = true;
+            dtGridProduto.Size = new Size(756, 307);
+            dtGridProduto.TabIndex = 0;
+            dtGridProduto.RowDividerDoubleClick += dtGridProduto_RowDividerDoubleClick;
+            dtGridProduto.RowHeaderMouseDoubleClick += dtGridProduto_RowHeaderMouseDoubleClick;
+            // 
             // tabAdd
             // 
+            tabAdd.Controls.Add(txtQtdNu);
+            tabAdd.Controls.Add(txtPrecoNu);
             tabAdd.Controls.Add(label5);
-            tabAdd.Controls.Add(richTextBox1);
+            tabAdd.Controls.Add(txtDesc);
             tabAdd.Controls.Add(label4);
-            tabAdd.Controls.Add(txtQuantidade);
             tabAdd.Controls.Add(label3);
-            tabAdd.Controls.Add(txtPreco);
             tabAdd.Controls.Add(label2);
             tabAdd.Controls.Add(txtCodigo);
             tabAdd.Controls.Add(label1);
@@ -117,68 +159,62 @@
             tabAdd.Text = "Cadastro";
             tabAdd.UseVisualStyleBackColor = true;
             // 
-            // tabEdit
+            // txtQtdNu
             // 
-            tabEdit.Controls.Add(cBAlterar);
-            tabEdit.Controls.Add(gbAlterar);
-            tabEdit.Location = new Point(4, 24);
-            tabEdit.Name = "tabEdit";
-            tabEdit.Padding = new Padding(3);
-            tabEdit.Size = new Size(768, 398);
-            tabEdit.TabIndex = 2;
-            tabEdit.Text = "Visualizar/Alterar";
-            tabEdit.UseVisualStyleBackColor = true;
+            txtQtdNu.DecimalPlaces = 2;
+            txtQtdNu.Location = new Point(373, 116);
+            txtQtdNu.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
+            txtQtdNu.Name = "txtQtdNu";
+            txtQtdNu.RightToLeft = RightToLeft.Yes;
+            txtQtdNu.Size = new Size(153, 23);
+            txtQtdNu.TabIndex = 4;
+            txtQtdNu.UpDownAlign = LeftRightAlignment.Left;
             // 
-            // dtGridProduto
+            // txtPrecoNu
             // 
-            dtGridProduto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtGridProduto.Location = new Point(6, 46);
-            dtGridProduto.Name = "dtGridProduto";
-            dtGridProduto.Size = new Size(756, 307);
-            dtGridProduto.TabIndex = 0;
+            txtPrecoNu.DecimalPlaces = 2;
+            txtPrecoNu.Location = new Point(28, 107);
+            txtPrecoNu.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
+            txtPrecoNu.Name = "txtPrecoNu";
+            txtPrecoNu.RightToLeft = RightToLeft.Yes;
+            txtPrecoNu.Size = new Size(151, 23);
+            txtPrecoNu.TabIndex = 3;
+            txtPrecoNu.UpDownAlign = LeftRightAlignment.Left;
             // 
-            // btnIrCadastrar
+            // label5
             // 
-            btnIrCadastrar.Location = new Point(687, 369);
-            btnIrCadastrar.Name = "btnIrCadastrar";
-            btnIrCadastrar.Size = new Size(75, 23);
-            btnIrCadastrar.TabIndex = 1;
-            btnIrCadastrar.Text = "Cadastrar";
-            btnIrCadastrar.UseVisualStyleBackColor = true;
+            label5.AutoSize = true;
+            label5.Location = new Point(28, 153);
+            label5.Name = "label5";
+            label5.Size = new Size(58, 15);
+            label5.TabIndex = 11;
+            label5.Text = "Descrição";
             // 
-            // btnCadastrar
+            // txtDesc
             // 
-            btnCadastrar.Location = new Point(670, 363);
-            btnCadastrar.Name = "btnCadastrar";
-            btnCadastrar.Size = new Size(92, 29);
-            btnCadastrar.TabIndex = 0;
-            btnCadastrar.Text = "Cadastrar";
-            btnCadastrar.UseVisualStyleBackColor = true;
+            txtDesc.Location = new Point(28, 171);
+            txtDesc.Name = "txtDesc";
+            txtDesc.Size = new Size(513, 122);
+            txtDesc.TabIndex = 5;
+            txtDesc.Text = "";
             // 
-            // btnVotarCad
+            // label4
             // 
-            btnVotarCad.Location = new Point(567, 363);
-            btnVotarCad.Name = "btnVotarCad";
-            btnVotarCad.Size = new Size(97, 29);
-            btnVotarCad.TabIndex = 1;
-            btnVotarCad.Text = "Voltar";
-            btnVotarCad.UseVisualStyleBackColor = true;
+            label4.AutoSize = true;
+            label4.Location = new Point(373, 98);
+            label4.Name = "label4";
+            label4.Size = new Size(69, 15);
+            label4.TabIndex = 9;
+            label4.Text = "Quantidade";
             // 
-            // txtNome
+            // label3
             // 
-            txtNome.Location = new Point(28, 45);
-            txtNome.Name = "txtNome";
-            txtNome.Size = new Size(308, 23);
-            txtNome.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(28, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(40, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Nome";
+            label3.AutoSize = true;
+            label3.Location = new Point(28, 89);
+            label3.Name = "label3";
+            label3.Size = new Size(37, 15);
+            label3.TabIndex = 7;
+            label3.Text = "Preço";
             // 
             // label2
             // 
@@ -194,65 +230,76 @@
             txtCodigo.Location = new Point(373, 45);
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(308, 23);
-            txtCodigo.TabIndex = 4;
+            txtCodigo.TabIndex = 2;
             // 
-            // label3
+            // label1
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(28, 89);
-            label3.Name = "label3";
-            label3.Size = new Size(37, 15);
-            label3.TabIndex = 7;
-            label3.Text = "Preço";
+            label1.AutoSize = true;
+            label1.Location = new Point(28, 27);
+            label1.Name = "label1";
+            label1.Size = new Size(40, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Nome";
             // 
-            // txtPreco
+            // txtNome
             // 
-            txtPreco.Location = new Point(28, 107);
-            txtPreco.Name = "txtPreco";
-            txtPreco.Size = new Size(168, 23);
-            txtPreco.TabIndex = 6;
+            txtNome.Location = new Point(28, 45);
+            txtNome.Name = "txtNome";
+            txtNome.Size = new Size(308, 23);
+            txtNome.TabIndex = 1;
             // 
-            // label4
+            // btnVotarCad
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(373, 98);
-            label4.Name = "label4";
-            label4.Size = new Size(69, 15);
-            label4.TabIndex = 9;
-            label4.Text = "Quantidade";
+            btnVotarCad.Location = new Point(567, 363);
+            btnVotarCad.Name = "btnVotarCad";
+            btnVotarCad.Size = new Size(97, 29);
+            btnVotarCad.TabIndex = 1;
+            btnVotarCad.Text = "Voltar";
+            btnVotarCad.UseVisualStyleBackColor = true;
+            btnVotarCad.Click += btnVotarCad_Click;
             // 
-            // txtQuantidade
+            // btnCadastrar
             // 
-            txtQuantidade.Location = new Point(373, 116);
-            txtQuantidade.Name = "txtQuantidade";
-            txtQuantidade.Size = new Size(168, 23);
-            txtQuantidade.TabIndex = 8;
+            btnCadastrar.Location = new Point(670, 363);
+            btnCadastrar.Name = "btnCadastrar";
+            btnCadastrar.Size = new Size(92, 29);
+            btnCadastrar.TabIndex = 6;
+            btnCadastrar.Text = "Cadastrar";
+            btnCadastrar.UseVisualStyleBackColor = true;
+            btnCadastrar.Click += btnCadastrar_Click;
             // 
-            // richTextBox1
+            // tabEdit
             // 
-            richTextBox1.Location = new Point(28, 171);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(513, 122);
-            richTextBox1.TabIndex = 10;
-            richTextBox1.Text = "";
+            tabEdit.Controls.Add(cBAlterar);
+            tabEdit.Controls.Add(gbAlterar);
+            tabEdit.Location = new Point(4, 24);
+            tabEdit.Name = "tabEdit";
+            tabEdit.Padding = new Padding(3);
+            tabEdit.Size = new Size(768, 398);
+            tabEdit.TabIndex = 2;
+            tabEdit.Text = "Visualizar/Alterar";
+            tabEdit.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // cBAlterar
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(28, 153);
-            label5.Name = "label5";
-            label5.Size = new Size(58, 15);
-            label5.TabIndex = 11;
-            label5.Text = "Descrição";
+            cBAlterar.AutoSize = true;
+            cBAlterar.Location = new Point(701, 11);
+            cBAlterar.Name = "cBAlterar";
+            cBAlterar.Size = new Size(61, 19);
+            cBAlterar.TabIndex = 1;
+            cBAlterar.Text = "Alterar";
+            cBAlterar.UseVisualStyleBackColor = true;
+            cBAlterar.CheckedChanged += cBAlterar_CheckedChanged;
             // 
             // gbAlterar
             // 
+            gbAlterar.Controls.Add(btnRemover);
+            gbAlterar.Controls.Add(txtQtdNuAlt);
+            gbAlterar.Controls.Add(txtPrecoAltNu);
             gbAlterar.Controls.Add(label6);
             gbAlterar.Controls.Add(txtDescAlt);
             gbAlterar.Controls.Add(label7);
-            gbAlterar.Controls.Add(txtQtdAlt);
             gbAlterar.Controls.Add(label8);
-            gbAlterar.Controls.Add(txtPrecoAlt);
             gbAlterar.Controls.Add(label9);
             gbAlterar.Controls.Add(txtCodigoAlt);
             gbAlterar.Controls.Add(label10);
@@ -267,33 +314,37 @@
             gbAlterar.TabStop = false;
             gbAlterar.Text = "Dados Produto";
             // 
-            // cBAlterar
+            // btnRemover
             // 
-            cBAlterar.AutoSize = true;
-            cBAlterar.Location = new Point(701, 11);
-            cBAlterar.Name = "cBAlterar";
-            cBAlterar.Size = new Size(61, 19);
-            cBAlterar.TabIndex = 1;
-            cBAlterar.Text = "Alterar";
-            cBAlterar.UseVisualStyleBackColor = true;
+            btnRemover.Location = new Point(6, 320);
+            btnRemover.Name = "btnRemover";
+            btnRemover.Size = new Size(100, 30);
+            btnRemover.TabIndex = 24;
+            btnRemover.Text = "Excluir";
+            btnRemover.UseVisualStyleBackColor = true;
+            btnRemover.Click += btnRemover_Click;
             // 
-            // btnSalvar
+            // txtQtdNuAlt
             // 
-            btnSalvar.Location = new Point(650, 320);
-            btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(100, 30);
-            btnSalvar.TabIndex = 0;
-            btnSalvar.Text = "Salvar";
-            btnSalvar.UseVisualStyleBackColor = true;
+            txtQtdNuAlt.DecimalPlaces = 2;
+            txtQtdNuAlt.Location = new Point(370, 117);
+            txtQtdNuAlt.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
+            txtQtdNuAlt.Name = "txtQtdNuAlt";
+            txtQtdNuAlt.RightToLeft = RightToLeft.Yes;
+            txtQtdNuAlt.Size = new Size(151, 23);
+            txtQtdNuAlt.TabIndex = 23;
+            txtQtdNuAlt.UpDownAlign = LeftRightAlignment.Left;
             // 
-            // btnVoltarEdit
+            // txtPrecoAltNu
             // 
-            btnVoltarEdit.Location = new Point(544, 320);
-            btnVoltarEdit.Name = "btnVoltarEdit";
-            btnVoltarEdit.Size = new Size(100, 30);
-            btnVoltarEdit.TabIndex = 1;
-            btnVoltarEdit.Text = "Voltar";
-            btnVoltarEdit.UseVisualStyleBackColor = true;
+            txtPrecoAltNu.DecimalPlaces = 2;
+            txtPrecoAltNu.Location = new Point(25, 108);
+            txtPrecoAltNu.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
+            txtPrecoAltNu.Name = "txtPrecoAltNu";
+            txtPrecoAltNu.RightToLeft = RightToLeft.Yes;
+            txtPrecoAltNu.Size = new Size(151, 23);
+            txtPrecoAltNu.TabIndex = 22;
+            txtPrecoAltNu.UpDownAlign = LeftRightAlignment.Left;
             // 
             // label6
             // 
@@ -321,13 +372,6 @@
             label7.TabIndex = 19;
             label7.Text = "Quantidade";
             // 
-            // txtQtdAlt
-            // 
-            txtQtdAlt.Location = new Point(370, 117);
-            txtQtdAlt.Name = "txtQtdAlt";
-            txtQtdAlt.Size = new Size(168, 23);
-            txtQtdAlt.TabIndex = 18;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -336,13 +380,6 @@
             label8.Size = new Size(37, 15);
             label8.TabIndex = 17;
             label8.Text = "Preço";
-            // 
-            // txtPrecoAlt
-            // 
-            txtPrecoAlt.Location = new Point(25, 108);
-            txtPrecoAlt.Name = "txtPrecoAlt";
-            txtPrecoAlt.Size = new Size(168, 23);
-            txtPrecoAlt.TabIndex = 16;
             // 
             // label9
             // 
@@ -376,40 +413,48 @@
             txtNomeAlt.Size = new Size(308, 23);
             txtNomeAlt.TabIndex = 12;
             // 
-            // txtSearch
+            // btnVoltarEdit
             // 
-            txtSearch.Location = new Point(525, 16);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(146, 23);
-            txtSearch.TabIndex = 2;
+            btnVoltarEdit.Location = new Point(544, 320);
+            btnVoltarEdit.Name = "btnVoltarEdit";
+            btnVoltarEdit.Size = new Size(100, 30);
+            btnVoltarEdit.TabIndex = 1;
+            btnVoltarEdit.Text = "Voltar";
+            btnVoltarEdit.UseVisualStyleBackColor = true;
+            btnVoltarEdit.Click += btnVoltarEdit_Click;
             // 
-            // btnPesquisa
+            // btnSalvar
             // 
-            btnPesquisa.Location = new Point(687, 15);
-            btnPesquisa.Name = "btnPesquisa";
-            btnPesquisa.Size = new Size(75, 23);
-            btnPesquisa.TabIndex = 3;
-            btnPesquisa.Text = "Pesquisar";
-            btnPesquisa.UseVisualStyleBackColor = true;
+            btnSalvar.Location = new Point(650, 320);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(100, 30);
+            btnSalvar.TabIndex = 0;
+            btnSalvar.Text = "Salvar";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
-            // Produto
+            // ProdutoFrm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tabControlProduto);
-            Name = "Produto";
+            Name = "ProdutoFrm";
             Text = "Produto";
             tabControlProduto.ResumeLayout(false);
             tabList.ResumeLayout(false);
             tabList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dtGridProduto).EndInit();
             tabAdd.ResumeLayout(false);
             tabAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtQtdNu).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPrecoNu).EndInit();
             tabEdit.ResumeLayout(false);
             tabEdit.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dtGridProduto).EndInit();
             gbAlterar.ResumeLayout(false);
             gbAlterar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtQtdNuAlt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPrecoAltNu).EndInit();
             ResumeLayout(false);
         }
 
@@ -424,15 +469,13 @@
         private Button btnCadastrar;
         private Button btnVotarCad;
         private Label label4;
-        private TextBox txtQuantidade;
         private Label label3;
-        private TextBox txtPreco;
         private Label label2;
         private TextBox txtCodigo;
         private Label label1;
         private TextBox txtNome;
         private Label label5;
-        private RichTextBox richTextBox1;
+        private RichTextBox txtDesc;
         private CheckBox cBAlterar;
         private GroupBox gbAlterar;
         private Button btnVoltarEdit;
@@ -440,14 +483,17 @@
         private Label label6;
         private RichTextBox txtDescAlt;
         private Label label7;
-        private TextBox txtQtdAlt;
         private Label label8;
-        private TextBox txtPrecoAlt;
         private Label label9;
         private TextBox txtCodigoAlt;
         private Label label10;
         private TextBox txtNomeAlt;
         private Button btnPesquisa;
         private TextBox txtSearch;
+        private NumericUpDown txtQtdNu;
+        private NumericUpDown txtPrecoNu;
+        private NumericUpDown txtQtdNuAlt;
+        private NumericUpDown txtPrecoAltNu;
+        private Button btnRemover;
     }
 }

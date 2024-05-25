@@ -42,7 +42,7 @@ namespace GCP.Front
             btnProduto.TabIndex = 0;
             btnProduto.Text = "Produtos";
             btnProduto.UseVisualStyleBackColor = false;
-            btnProduto.Click += this.btnProduto_Click;
+            btnProduto.Click += btnProduto_Click;
             // 
             // mainPanel
             // 
@@ -61,6 +61,7 @@ namespace GCP.Front
             Controls.Add(mainPanel);
             Controls.Add(btnProduto);
             Name = "Main";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "GCP - Gerenciador de Clientes e Produtos";
             ResumeLayout(false);
         }

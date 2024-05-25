@@ -2,7 +2,6 @@
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
-using Microsoft.Extensions.Options;
 
 namespace GCP.Repository.Repository
 {
@@ -12,11 +11,12 @@ namespace GCP.Repository.Repository
 
         public int Add(Produto entity)
         {
-            var sql = "INSERT INTO Produto VALUES(@Nome, @Codigo, @Descricao, @Preco, @Quantidade, @DataInclusao) RETURNING Id";
+            var sql = "INSERT INTO \"Produto\" (\"Nome\", \"Codigo\", \"Descricao\", \"Preco\", \"Quantidade\", \"DataInclusao\") " +
+                        "VALUES(@Nome, @Codigo, @Descricao, @Preco, @Quantidade, @DataInclusao) RETURNING \"Id\"";
 
             try
             {
-                OpenConnection();
+                OpenConnection();              
                 return DbConnection.ExecuteScalar<int>(sql, entity);
             }
             finally
@@ -27,7 +27,7 @@ namespace GCP.Repository.Repository
 
         public bool ExistByCode(string? code)
         {
-            var sql = "SELECT COUNT(1) FROM Produto WHERE Codigo = @Code";
+            var sql = "SELECT COUNT(1) FROM \"Produto\" WHERE \"Codigo\" = @Code";
 
             try
             {
@@ -43,7 +43,7 @@ namespace GCP.Repository.Repository
 
         public IEnumerable<Produto> GetAll()
         {
-            var sql = "SELECT * FROM Produto";
+            var sql = "SELECT * FROM \"Produto\"";
 
             try
             {
@@ -59,7 +59,7 @@ namespace GCP.Repository.Repository
 
         public Produto? GetById(int id)
         {
-            var sql = "SELECT * FROM Produto WHERE Id = @Id";
+            var sql = "SELECT * FROM \"Produto\" WHERE \"Id\" = @Id";
 
             try
             {
@@ -75,7 +75,7 @@ namespace GCP.Repository.Repository
 
         public int Remove(int id)
         {
-            var sql = "DELETE FROM Produto WHERE Id = @Id";
+            var sql = "DELETE FROM \"Produto\" WHERE Id = @Id";
 
             try
             {
@@ -91,13 +91,8 @@ namespace GCP.Repository.Repository
 
         public int Update(Produto entity)
         {
-            var sql = @"UPDATE Produto 
-                                SET(Nome = @Nome, 
-                                    Codigo=@Codigo, 
-                                    Descricao=@Descricao, 
-                                    Preco=@Preco, 
-                                    Quantidade=@Quantidade) 
-                                WHERE Id=@Id RETURNING Id";
+            var sql = "UPDATE \"Produto\" SET(\"Nome\"= @Nome, \"Codigo\"=@Codigo, \"Descricao\"=@Descricao, \"Preco\"=@Preco, \"Quantidade\"=@Quantidade)"+
+                                "WHERE \"Id\"=@Id RETURNING \"Id\"";
 
             try
             {

@@ -28,5 +28,40 @@ namespace GCP.App.Services
 
             _produtoRepository.Add(result);          
         }
+
+        public IEnumerable<ProdutoDTO> GetAll()
+        {
+            var entities = _produtoRepository.GetAll();
+
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(entities);
+        }
+
+        public ProdutoDTO GetById(int id)
+        {
+            var entity = _produtoRepository.GetById(id);
+
+            return _mapper.Map<ProdutoDTO>(entity);
+        }
+
+        public void Remove(int id)
+        {
+            _produtoRepository.Remove(id);
+        }
+
+        public void Update(ProdutoDTO dto)
+        {
+            if (!dto.Id.HasValue)
+                throw new InvalidOperationException("Identificador inválido!");
+
+            var entity = _produtoRepository.GetById(dto.Id.Value);
+
+            if(_produtoRepository.ExistByCode(dto.Codigo) && entity?.Codigo != dto.Codigo)
+                throw new DomainExceptionValidate("Código já existe para outro produto.");
+
+            entity?.Atualizar(dto.Nome, dto.Codigo, dto.Descricao, dto.Preco, dto.Quantidade);
+
+            _produtoRepository.Update(entity);
+
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace GCP.App.Profiles
     {
         public MapProfile()
         {
-            CreateMap<ProdutoDTO, Produto>();
+            CreateMap<ProdutoDTO, Produto>().ReverseMap();
         }
     }
 }
