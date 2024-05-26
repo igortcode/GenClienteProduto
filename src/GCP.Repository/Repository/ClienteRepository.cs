@@ -102,6 +102,11 @@ namespace GCP.Repository.Repository
             }
         }
 
+        public IEnumerable<Cliente> Search(string search)
+        {
+            throw new NotImplementedException();
+        }
+
         public int Update(Cliente entity)
         {
             var sql = @"UPDATE Cliente SET(

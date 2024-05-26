@@ -42,14 +42,14 @@ namespace GCP.Front
             btnProduto.TabIndex = 0;
             btnProduto.Text = "Produtos";
             btnProduto.UseVisualStyleBackColor = false;
-            btnProduto.Click += this.btnProduto_Click;
+            btnProduto.Click += btnProduto_Click;
             // 
             // mainPanel
             // 
             mainPanel.BackColor = SystemColors.Control;
-            mainPanel.Location = new Point(172, 27);
+            mainPanel.Location = new Point(178, 27);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(817, 468);
+            mainPanel.Size = new Size(811, 487);
             mainPanel.TabIndex = 1;
             // 
             // Main
@@ -61,6 +61,7 @@ namespace GCP.Front
             Controls.Add(mainPanel);
             Controls.Add(btnProduto);
             Name = "Main";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "GCP - Gerenciador de Clientes e Produtos";
             ResumeLayout(false);
         }

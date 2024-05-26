@@ -8,6 +8,7 @@ namespace GCP.App.Interfaces.Generic
         int Update(T entity);
         T? GetById(int id);
         IEnumerable<T> GetAll();
+        IEnumerable<T> Search(string search);
         int Remove(int id);
     }
 }
