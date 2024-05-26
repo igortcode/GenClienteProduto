@@ -75,6 +75,11 @@ namespace GCP.Repository.Repository
             }
         }
 
+        public IEnumerable<Venda> Search(string search)
+        {
+            throw new NotImplementedException();
+        }
+
         public int Update(Venda entity)
         {
             var sql = @"UPDATE Produto 

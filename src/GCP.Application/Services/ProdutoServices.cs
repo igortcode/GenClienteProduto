@@ -48,6 +48,13 @@ namespace GCP.App.Services
             _produtoRepository.Remove(id);
         }
 
+        public IEnumerable<ProdutoDTO> Search(string search)
+        {
+            var entities = _produtoRepository.Search(search);
+
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(entities);
+        }
+
         public void Update(ProdutoDTO dto)
         {
             if (!dto.Id.HasValue)

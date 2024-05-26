@@ -30,8 +30,9 @@
         {
             tabControlProduto = new TabControl();
             tabList = new TabPage();
+            btnAtualizarList = new Button();
             btnPesquisa = new Button();
-            txtSearch = new TextBox();
+            txtPesquisa = new TextBox();
             btnIrCadastrar = new Button();
             dtGridProduto = new DataGridView();
             tabAdd = new TabPage();
@@ -61,8 +62,8 @@
             txtCodigoAlt = new TextBox();
             label10 = new Label();
             txtNomeAlt = new TextBox();
-            btnVoltarEdit = new Button();
             btnSalvar = new Button();
+            btnVoltarEdit = new Button();
             tabControlProduto.SuspendLayout();
             tabList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtGridProduto).BeginInit();
@@ -84,12 +85,14 @@
             tabControlProduto.Name = "tabControlProduto";
             tabControlProduto.SelectedIndex = 0;
             tabControlProduto.Size = new Size(776, 426);
+            tabControlProduto.SizeMode = TabSizeMode.FillToRight;
             tabControlProduto.TabIndex = 0;
             // 
             // tabList
             // 
+            tabList.Controls.Add(btnAtualizarList);
             tabList.Controls.Add(btnPesquisa);
-            tabList.Controls.Add(txtSearch);
+            tabList.Controls.Add(txtPesquisa);
             tabList.Controls.Add(btnIrCadastrar);
             tabList.Controls.Add(dtGridProduto);
             tabList.Location = new Point(4, 24);
@@ -100,29 +103,40 @@
             tabList.Text = "Produtos";
             tabList.UseVisualStyleBackColor = true;
             // 
+            // btnAtualizarList
+            // 
+            btnAtualizarList.Location = new Point(579, 363);
+            btnAtualizarList.Name = "btnAtualizarList";
+            btnAtualizarList.Size = new Size(90, 29);
+            btnAtualizarList.TabIndex = 4;
+            btnAtualizarList.Text = "Atualizar";
+            btnAtualizarList.UseVisualStyleBackColor = true;
+            btnAtualizarList.Click += btnAtualizarList_Click;
+            // 
             // btnPesquisa
             // 
-            btnPesquisa.Location = new Point(687, 15);
+            btnPesquisa.Location = new Point(668, 6);
             btnPesquisa.Name = "btnPesquisa";
-            btnPesquisa.Size = new Size(75, 23);
+            btnPesquisa.Size = new Size(94, 32);
             btnPesquisa.TabIndex = 3;
             btnPesquisa.Text = "Pesquisar";
             btnPesquisa.UseVisualStyleBackColor = true;
+            btnPesquisa.Click += btnPesquisa_Click;
             // 
-            // txtSearch
+            // txtPesquisa
             // 
-            txtSearch.Location = new Point(525, 16);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(146, 23);
-            txtSearch.TabIndex = 2;
+            txtPesquisa.Location = new Point(515, 12);
+            txtPesquisa.Name = "txtPesquisa";
+            txtPesquisa.Size = new Size(147, 23);
+            txtPesquisa.TabIndex = 2;
             // 
             // btnIrCadastrar
             // 
-            btnIrCadastrar.Location = new Point(687, 369);
+            btnIrCadastrar.Location = new Point(675, 363);
             btnIrCadastrar.Name = "btnIrCadastrar";
-            btnIrCadastrar.Size = new Size(75, 23);
+            btnIrCadastrar.Size = new Size(87, 29);
             btnIrCadastrar.TabIndex = 1;
-            btnIrCadastrar.Text = "Cadastrar";
+            btnIrCadastrar.Text = "Novo";
             btnIrCadastrar.UseVisualStyleBackColor = true;
             btnIrCadastrar.Click += btnIrCadastrar_Click;
             // 
@@ -272,6 +286,7 @@
             // 
             tabEdit.Controls.Add(cBAlterar);
             tabEdit.Controls.Add(gbAlterar);
+            tabEdit.Controls.Add(btnVoltarEdit);
             tabEdit.Location = new Point(4, 24);
             tabEdit.Name = "tabEdit";
             tabEdit.Padding = new Padding(3);
@@ -304,7 +319,6 @@
             gbAlterar.Controls.Add(txtCodigoAlt);
             gbAlterar.Controls.Add(label10);
             gbAlterar.Controls.Add(txtNomeAlt);
-            gbAlterar.Controls.Add(btnVoltarEdit);
             gbAlterar.Controls.Add(btnSalvar);
             gbAlterar.Enabled = false;
             gbAlterar.Location = new Point(6, 36);
@@ -413,25 +427,25 @@
             txtNomeAlt.Size = new Size(308, 23);
             txtNomeAlt.TabIndex = 12;
             // 
-            // btnVoltarEdit
-            // 
-            btnVoltarEdit.Location = new Point(544, 320);
-            btnVoltarEdit.Name = "btnVoltarEdit";
-            btnVoltarEdit.Size = new Size(100, 30);
-            btnVoltarEdit.TabIndex = 1;
-            btnVoltarEdit.Text = "Voltar";
-            btnVoltarEdit.UseVisualStyleBackColor = true;
-            btnVoltarEdit.Click += btnVoltarEdit_Click;
-            // 
             // btnSalvar
             // 
-            btnSalvar.Location = new Point(650, 320);
+            btnSalvar.Location = new Point(657, 321);
             btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(100, 30);
+            btnSalvar.Size = new Size(93, 29);
             btnSalvar.TabIndex = 0;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
             btnSalvar.Click += btnSalvar_Click;
+            // 
+            // btnVoltarEdit
+            // 
+            btnVoltarEdit.Location = new Point(593, 6);
+            btnVoltarEdit.Name = "btnVoltarEdit";
+            btnVoltarEdit.Size = new Size(91, 30);
+            btnVoltarEdit.TabIndex = 1;
+            btnVoltarEdit.Text = "Voltar";
+            btnVoltarEdit.UseVisualStyleBackColor = true;
+            btnVoltarEdit.Click += btnVoltarEdit_Click;
             // 
             // ProdutoFrm
             // 
@@ -489,11 +503,12 @@
         private Label label10;
         private TextBox txtNomeAlt;
         private Button btnPesquisa;
-        private TextBox txtSearch;
+        private TextBox txtPesquisa;
         private NumericUpDown txtQtdNu;
         private NumericUpDown txtPrecoNu;
         private NumericUpDown txtQtdNuAlt;
         private NumericUpDown txtPrecoAltNu;
         private Button btnRemover;
+        private Button btnAtualizarList;
     }
 }

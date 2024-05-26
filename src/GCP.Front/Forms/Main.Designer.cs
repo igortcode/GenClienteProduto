@@ -47,9 +47,9 @@ namespace GCP.Front
             // mainPanel
             // 
             mainPanel.BackColor = SystemColors.Control;
-            mainPanel.Location = new Point(172, 27);
+            mainPanel.Location = new Point(178, 27);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(817, 468);
+            mainPanel.Size = new Size(811, 487);
             mainPanel.TabIndex = 1;
             // 
             // Main

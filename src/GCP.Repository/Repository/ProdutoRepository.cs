@@ -43,7 +43,7 @@ namespace GCP.Repository.Repository
 
         public IEnumerable<Produto> GetAll()
         {
-            var sql = "SELECT * FROM \"Produto\"";
+            var sql = "SELECT * FROM \"Produto\" ORDER BY \"DataInclusao\" DESC";
 
             try
             {
@@ -59,7 +59,7 @@ namespace GCP.Repository.Repository
 
         public Produto? GetById(int id)
         {
-            var sql = "SELECT * FROM \"Produto\" WHERE \"Id\" = @Id";
+            var sql = "SELECT * FROM \"Produto\" WHERE \"Id\" = @Id" ;
 
             try
             {
@@ -75,7 +75,7 @@ namespace GCP.Repository.Repository
 
         public int Remove(int id)
         {
-            var sql = "DELETE FROM \"Produto\" WHERE Id = @Id";
+            var sql = "DELETE FROM \"Produto\" WHERE \"Id\" = @Id";
 
             try
             {
@@ -89,10 +89,48 @@ namespace GCP.Repository.Repository
             }
         }
 
+        public IEnumerable<Produto> Search(string search)
+        {
+
+            if(decimal.TryParse(search, out var decimalValue))
+            {
+                var sql = "SELECT * FROM \"Produto\"" +
+                        "WHERE \"Preco\" = @pesquisa OR \"Quantidade\" = @pesquisa";
+
+                try
+                {
+                    OpenConnection();
+
+                    return DbConnection.Query<Produto>(sql, new {pesquisa = decimalValue});
+                }
+                finally
+                {
+                    DbConnection?.Close();
+                }
+
+            }
+            else
+            {
+                var sql = "SELECT * FROM \"Produto\"" +
+                    "WHERE \"Nome\" LIKE @pesquisa OR \"Codigo\" LIKE @pesquisa OR \"Descricao\" LIKE @pesquisa";
+
+                try
+                {
+                    OpenConnection();
+
+                    return DbConnection.Query<Produto>(sql, new { pesquisa = $"%{search}%" });
+                }
+                finally
+                {
+                    DbConnection?.Close();
+                }
+            }
+        }
+
         public int Update(Produto entity)
         {
-            var sql = "UPDATE \"Produto\" SET(\"Nome\"= @Nome, \"Codigo\"=@Codigo, \"Descricao\"=@Descricao, \"Preco\"=@Preco, \"Quantidade\"=@Quantidade)"+
-                                "WHERE \"Id\"=@Id RETURNING \"Id\"";
+            var sql = "UPDATE \"Produto\" SET \"Nome\" = @Nome, \"Codigo\" = @Codigo, \"Descricao\" = @Descricao, \"Preco\" = @Preco, \"Quantidade\" = @Quantidade"+
+                                " WHERE \"Id\"= @Id RETURNING \"Id\"";
 
             try
             {
