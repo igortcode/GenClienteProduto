@@ -14,7 +14,8 @@ namespace GCP.Repository.Repository
 
         public int Add(Venda entity)
         {
-            var sql = "INSERT INTO Venda VALUES(@ClienteId, @ValorTotal, @TipoPagamento, @DataInclusao) RETURNING Id";
+            var sql = @"INSERT INTO ""Venda"" (""ClienteId"", ""ValorTotal"", ""TipoPagamento"", ""DataInclusao"" ) 
+                        VALUES(@ClienteId, @ValorTotal, @TipoPagamento, @DataInclusao) RETURNING ""Id""";
 
             try
             {
@@ -29,7 +30,7 @@ namespace GCP.Repository.Repository
 
         public IEnumerable<Venda> GetAll()
         {
-            var sql = "SELECT * FROM Venda";
+            var sql = @"SELECT * FROM ""Venda"" ORDER BY ""DataInclusao"" DESC" ;
 
             try
             {
@@ -45,7 +46,7 @@ namespace GCP.Repository.Repository
 
         public Venda? GetById(int id)
         {
-            var sql = "SELECT * FROM Venda WHERE Id = @Id";
+            var sql = @"SELECT * FROM ""Venda"" WHERE ""Id"" = @Id";
 
             try
             {
@@ -61,7 +62,7 @@ namespace GCP.Repository.Repository
 
         public int Remove(int id)
         {
-            var sql = "DELETE FROM Venda WHERE Id = @Id";
+            var sql = @"DELETE FROM ""Venda"" WHERE ""Id"" = @Id";
 
             try
             {
@@ -82,11 +83,11 @@ namespace GCP.Repository.Repository
 
         public int Update(Venda entity)
         {
-            var sql = @"UPDATE Produto 
-                                SET(ClienteId = @ClienteId, 
-                                    ValorTotal=@ValorTotal, 
-                                    TipoPagamento=@TipoPagamento) 
-                                WHERE Id=@Id RETURNING Id";
+            var sql = @"UPDATE Venda 
+                                SET ""ClienteId"" = @ClienteId, 
+                                    ""ValorTotal"" = @ValorTotal, 
+                                    ""TipoPagamento"" = @TipoPagamento) 
+                                WHERE ""Id"" = @Id RETURNING ""Id""";
 
             try
             {

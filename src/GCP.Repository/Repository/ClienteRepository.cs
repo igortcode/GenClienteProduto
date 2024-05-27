@@ -2,7 +2,6 @@
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
-using Microsoft.Extensions.Options;
 
 namespace GCP.Repository.Repository
 {
@@ -14,39 +13,43 @@ namespace GCP.Repository.Repository
 
         public int Add(Cliente entity)
         {
-            var sql = @"INSERT INTO Cliente VALUES(
-                                    @Nome, 
-                                    @Cpf, 
-                                    @Cep, 
-                                    @Logradouro, 
-                                    @Bairro, 
-                                    @Cidade, 
-                                    @Estado, 
-                                    @Numero, 
-                                    @Complemento, 
-                                    @Telefone, 
-                                    @Email, 
-                                    @DataInclusao) 
-                                        RETURNING Id";
+            var sql = @"INSERT INTO Cliente (""Nome"", ""Cpf"", ""Cep"", ""Logradouro"", ""Bairro"", ""Cidade"", ""Estado"", ""Numero"", ""Complemento"", ""Telefone"", ""Email"", ""DataInclusao"")" +
+                "VALUES( @Nome, @Cpf, @Cep, @Logradouro, @Bairro, @Cidade, @Estado, @Numero, @Complemento, @Telefone, @Email, @DataInclusao) RETURNING Id";
 
             try
             {
                 OpenConnection();
                 return DbConnection.ExecuteScalar<int>(sql, new
                 {
-                    Nome = entity.Nome,
-                    Cpf = entity.Cpf,
-                    Cep = entity.Endereco?.Cep,
-                    Logradouro = entity.Endereco?.Logradouro,
-                    Bairro = entity.Endereco?.Bairro,
-                    Cidade = entity.Endereco?.Cidade,
-                    Estado = entity.Endereco?.Estado,
-                    Numero = entity.Endereco?.Numero,
-                    Complemento = entity.Endereco?.Complemento,
-                    Telefone = entity.Telefone,
-                    Email = entity.Email,
-                    DataInclusao = entity.DataInclusao
+                    entity.Nome,
+                    entity.Cpf,
+                    entity.Endereco?.Cep,
+                    entity.Endereco?.Logradouro,
+                    entity.Endereco?.Bairro,
+                    entity.Endereco?.Cidade,
+                    entity.Endereco?.Estado,
+                    entity.Endereco?.Numero,
+                    entity.Endereco?.Complemento,
+                    entity.Telefone,
+                    entity.Email,
+                    entity.DataInclusao
                 });
+            }
+            finally
+            {
+                DbConnection.Close();
+            }
+        }
+
+        public bool ExistePorCpf(string cpf)
+        {
+            var sql = @"SELECT COUNT(1) FROM ""Cliente"" WHERE ""Cpf"" = @Cpf";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.ExecuteScalar<int>(sql, new { Cpf = cpf }) > 0;
             }
             finally
             {
@@ -56,7 +59,7 @@ namespace GCP.Repository.Repository
 
         public IEnumerable<Cliente> GetAll()
         {
-            var sql = "SELECT * FROM Cliente";
+            var sql = @"SELECT * FROM ""Cliente"" ORDER BY ""DataInclusao"" DESC";
 
             try
             {
@@ -72,7 +75,7 @@ namespace GCP.Repository.Repository
 
         public Cliente? GetById(int id)
         {
-            var sql = "SELECT * FROM Cliente WHERE Id = @Id";
+            var sql = @"SELECT * FROM ""Cliente"" WHERE ""Id"" = @Id";
 
             try
             {
@@ -86,9 +89,25 @@ namespace GCP.Repository.Repository
             }
         }
 
+        public Cliente? GetByCpf(string cpf)
+        {
+            var sql = @"SELECT * FROM ""Cliente"" WHERE ""Cpf"" = @Cpf";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.QueryFirstOrDefault<Cliente>(sql, new { Cpf = cpf });
+            }
+            finally
+            {
+                DbConnection.Close();
+            }
+        }
+
         public int Remove(int id)
         {
-            var sql = "DELETE FROM Cliente WHERE Id = @Id";
+            var sql = @"DELETE FROM ""Cliente"" WHERE ""Id"" = @Id";
 
             try
             {
@@ -104,42 +123,66 @@ namespace GCP.Repository.Repository
 
         public IEnumerable<Cliente> Search(string search)
         {
-            throw new NotImplementedException();
+            var sql = @"SELECT * FROM ""Cliente"" 
+                WHERE 
+                ""Nome"" LIKE @pesquisa OR
+                ""Cpf"" LIKE @pesquisa OR
+                ""Email"" LIKE @pesquisa OR
+                ""Telefone"" LIKE @pesquisa OR
+                ""Cep"" LIKE @pesquisa OR
+                ""Logradouro"" LIKE @pesquisa OR
+                ""Bairro"" LIKE @pesquisa OR
+                ""Cidade"" LIKE @pesquisa OR
+                ""Estado"" LIKE @pesquisa OR
+                ""Numero"" LIKE @pesquisa OR
+                ""Complemento"" LIKE @pesquisa OR
+                ORDER BY ""DataInclusao"" DESC";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.Query<Cliente>(sql, new {pesquisa = $"%{search}%"});
+            }
+            finally
+            {
+                DbConnection.Close();
+            }
         }
 
         public int Update(Cliente entity)
         {
-            var sql = @"UPDATE Cliente SET(
-                                    Nome=@Nome, 
-                                    Cpf=@Cpf, 
-                                    Cep=@Cep, 
-                                    Logradouro=@Logradouro, 
-                                    Bairro=@Bairro, 
-                                    Cidade=@Cidade, 
-                                    Estado=@Estado, 
-                                    Numero=@Numero, 
-                                    Complemento=@Complemento, 
-                                    Telefone=@Telefone, 
-                                    Email=@Email) WHERE Id= @Id
-                                        RETURNING Id";
+            var sql = @"UPDATE ""Cliente"" SET
+                                    ""Nome"" = @Nome, 
+                                    ""Cpf"" = @Cpf, 
+                                    ""Cep"" = @Cep, 
+                                    ""Logradouro"" = @Logradouro, 
+                                    ""Bairro"" = @Bairro, 
+                                    ""Cidade"" = @Cidade, 
+                                    ""Estado"" = @Estado, 
+                                    ""Numero"" = @Numero, 
+                                    ""Complemento"" = @Complemento, 
+                                    ""Telefone"" = @Telefone, 
+                                    ""Email"" = @Email WHERE ""Id"" = @Id
+                                        RETURNING ""Id""";
 
             try
             {
                 OpenConnection();
                 return DbConnection.ExecuteScalar<int>(sql, new
                 {
-                    Nome = entity.Nome,
-                    Cpf = entity.Cpf,
-                    Cep = entity.Endereco?.Cep,
-                    Logradouro = entity.Endereco?.Logradouro,
-                    Bairro = entity.Endereco?.Bairro,
-                    Cidade = entity.Endereco?.Cidade,
-                    Estado = entity.Endereco?.Estado,
-                    Numero = entity.Endereco?.Numero,
-                    Complemento = entity.Endereco?.Complemento,
-                    Telefone = entity.Telefone,
-                    Email = entity.Email,
-                    Id = entity.Id
+                    entity.Nome,
+                    entity.Cpf,
+                    entity.Endereco?.Cep,
+                    entity.Endereco?.Logradouro,
+                    entity.Endereco?.Bairro,
+                    entity.Endereco?.Cidade,
+                    entity.Endereco?.Estado,
+                    entity.Endereco?.Numero,
+                    entity.Endereco?.Complemento,
+                    entity.Telefone,
+                    entity.Email,
+                    entity.Id
                 });
             }
             finally

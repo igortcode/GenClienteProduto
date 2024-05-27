@@ -14,7 +14,7 @@ namespace GCP.Core.Entities
         public string? Email { get; private set; }
 
 
-        public Cliente(int id, string cpf, string nome, string telefone, string email, string cep, string logradouro, string bairro, string cidade, string estado, string numero, string complemento, DateTime dataInclusao) : base(id, dataInclusao)
+        public Cliente(int id,  string nome, string cpf, string cep, string logradouro, string bairro, string cidade, string estado, string numero, string complemento, string telefone, string email, DateTime dataInclusao) : base(id, dataInclusao)
         {
             var endereco = new EnderecoVO(cep, logradouro, bairro, cidade, estado, numero, complemento);
             Validate(nome, cpf, endereco, telefone, email);
