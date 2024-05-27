@@ -14,7 +14,7 @@ namespace GCP.Front.Forms
         {
             _produtoServices = produtoServices;
             InitializeComponent();
-            DataBind(null);
+            DataBind();
             (tabEdit as Control).Enabled = false;
         }
 
@@ -147,6 +147,7 @@ namespace GCP.Front.Forms
 
                     MessageBox.Show("Registro excluído com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearTextBoxAlt();
+                    DataBind();
                     tabControlProduto.SelectedTab = tabList;
                     (tabEdit as Control).Enabled = false;
                 }
@@ -279,7 +280,7 @@ namespace GCP.Front.Forms
 
         private void GoToList()
         {
-            DataBind(null);
+            DataBind();
             tabControlProduto.SelectedTab = tabList;
         }
 
@@ -339,7 +340,7 @@ namespace GCP.Front.Forms
         {
             return decimal.TryParse(text, out var valor);
         }
-        private void DataBind(IList<ProdutoDTO>? produtos)
+        private void DataBind(IList<ProdutoDTO>? produtos = null)
         {
             if (produtos is null)
                 produtos = _produtoServices.GetAll().ToList();

@@ -23,6 +23,7 @@ namespace GCP.Core.Entities
             Endereco = endereco;
             Telefone = telefone;
             Email = email;
+            Cpf = cpf;
         }
 
         public Cliente(string nome, string cpf, EnderecoVO? endereco, string telefone, string email)
@@ -33,6 +34,7 @@ namespace GCP.Core.Entities
             Endereco = endereco;
             Telefone = telefone;
             Email = email;
+            Cpf = cpf;
         }
 
         public void Atualizar(string nome, string cpf, EnderecoVO? endereco, string telefone, string email)
@@ -43,6 +45,7 @@ namespace GCP.Core.Entities
             Endereco = endereco;
             Telefone = telefone;
             Email = email;
+            Cpf = cpf;
         }
 
         private void Validate(string? nome, string cpf, EnderecoVO? endereco, string? telefone, string? email)

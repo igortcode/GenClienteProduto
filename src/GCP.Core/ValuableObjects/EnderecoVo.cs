@@ -38,7 +38,6 @@ namespace GCP.Core.ValuableObjects
             ValidationsHelper.StringValidate(cidade, "Cidade", 300);
             ValidationsHelper.StringValidate(estado, "Estado", 2);
             ValidationsHelper.StringValidate(numero, "Número", 50);
-            ValidationsHelper.StringValidate(complemento, "Complemento", 500);
         }
     }
 }

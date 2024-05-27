@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnderecoForm));
             Cep = new Label();
             mkCep = new MaskedTextBox();
             txtLogradouro = new TextBox();
@@ -44,6 +45,8 @@
             btnFechar = new Button();
             label6 = new Label();
             txtComplemento = new TextBox();
+            pbLoading = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pbLoading).BeginInit();
             SuspendLayout();
             // 
             // Cep
@@ -66,6 +69,7 @@
             // 
             // txtLogradouro
             // 
+            txtLogradouro.Enabled = false;
             txtLogradouro.Location = new Point(25, 103);
             txtLogradouro.Name = "txtLogradouro";
             txtLogradouro.Size = new Size(334, 23);
@@ -91,6 +95,7 @@
             // 
             // txtBairro
             // 
+            txtBairro.Enabled = false;
             txtBairro.Location = new Point(25, 158);
             txtBairro.Name = "txtBairro";
             txtBairro.Size = new Size(213, 23);
@@ -107,6 +112,7 @@
             // 
             // txtNumero
             // 
+            txtNumero.Enabled = false;
             txtNumero.Location = new Point(260, 158);
             txtNumero.Name = "txtNumero";
             txtNumero.Size = new Size(99, 23);
@@ -123,6 +129,7 @@
             // 
             // txtCidade
             // 
+            txtCidade.Enabled = false;
             txtCidade.Location = new Point(25, 214);
             txtCidade.Name = "txtCidade";
             txtCidade.Size = new Size(161, 23);
@@ -139,6 +146,7 @@
             // 
             // cbEstado
             // 
+            cbEstado.Enabled = false;
             cbEstado.FormattingEnabled = true;
             cbEstado.Location = new Point(260, 214);
             cbEstado.Name = "cbEstado";
@@ -176,16 +184,30 @@
             // 
             // txtComplemento
             // 
+            txtComplemento.Enabled = false;
             txtComplemento.Location = new Point(25, 273);
             txtComplemento.Name = "txtComplemento";
             txtComplemento.Size = new Size(334, 23);
             txtComplemento.TabIndex = 16;
+            // 
+            // pbLoading
+            // 
+            pbLoading.Image = (Image)resources.GetObject("pbLoading.Image");
+            pbLoading.InitialImage = (Image)resources.GetObject("pbLoading.InitialImage");
+            pbLoading.Location = new Point(111, 45);
+            pbLoading.Name = "pbLoading";
+            pbLoading.Size = new Size(24, 23);
+            pbLoading.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbLoading.TabIndex = 18;
+            pbLoading.TabStop = false;
+            pbLoading.Click += pbLoading_Click;
             // 
             // EnderecoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(383, 368);
+            Controls.Add(pbLoading);
             Controls.Add(label6);
             Controls.Add(txtComplemento);
             Controls.Add(btnFechar);
@@ -206,6 +228,7 @@
             Name = "EnderecoForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Endereço";
+            ((System.ComponentModel.ISupportInitialize)pbLoading).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -228,5 +251,6 @@
         private Button btnFechar;
         private Label label6;
         private TextBox txtComplemento;
+        private PictureBox pbLoading;
     }
 }

@@ -9,116 +9,23 @@ namespace GCP.Front.Forms
         private readonly IClienteServices _clienteServices;
         private int _id;
         private EnderecoDTO _endereco;
+        private EnderecoForm _enderecoFromAlt;
+        private EnderecoForm _enderecoFromCad;
 
         public ClientForm(IClienteServices clienteServices)
         {
             _clienteServices = clienteServices;
             InitializeComponent();
             DataBind();
+            _endereco = new EnderecoDTO();
         }
 
-        private void btnCadastrar_Click(object sender, EventArgs e)
-        {
-            if (ValidateFieldsCad())
-            {
-                try
-                {
-                    var cliente = CastFormCadToDto();
-
-                    _clienteServices.Add(cliente);
-
-                    MessageBox.Show("Cadastro efetuado com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    ClearTextBox();
-                    GoToList();
-                }
-                catch (DomainExceptionValidate dev)
-                {
-                    MessageBox.Show("Não foi possível inserir o registro. Mensagem: " + dev.Message, "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Ops! Aconteceu algum problema. Verifique a conexão com o banco de dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void btnVotarCad_Click(object sender, EventArgs e)
-        {
-            tabControlProduto.SelectedTab = tabList;
-        }
-
-        private void btnVoltarEdit_Click(object sender, EventArgs e)
-        {
-            ClearTextBoxAlt();
-            tabControlProduto.SelectedTab = tabList;
-        }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            if (ValidateFieldsAlt())
-            {
-                var result = MessageBox.Show("Tem certeza que deseja alterar esse registro?",
-             "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    try
-                    {
-                        var cliente = CastFormAltToDto();
-
-                        _clienteServices.Add(cliente);
-
-                        MessageBox.Show("Registro atualizado com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        ClearTextBoxAlt();
-                        GoToList();
-                    }
-                    catch (DomainExceptionValidate dev)
-                    {
-                        MessageBox.Show("Não foi possível inserir o registro. Mensagem: " + dev.Message, "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Ops! Aconteceu algum problema. Verifique a conexão com o banco de dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-
-            }
-        }
-
-        private void cBAlterar_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cBAlterar.Checked)
-            {
-                gbAlterar.Enabled = true;
-            }
-            else
-            {
-                gbAlterar.Enabled = false;
-            }
-        }
 
         private void dtGridProduto_RowDividerDoubleClick(object sender, DataGridViewRowDividerDoubleClickEventArgs e)
         {
 
         }
 
-        private void dtGridProduto_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (dtGridCliente.CurrentRow.Cells[0].Value != null)
-            {
-                (tabEdit as Control).Enabled = true;
-
-                var id = (int)dtGridCliente.CurrentRow.Cells[0].Value;
-
-                _id = id;
-
-                PreencherAlterar(_clienteServices.GetById(id));
-
-                tabControlProduto.SelectedTab = tabEdit;
-            }
-        }
 
         private void PreencherAlterar(ClienteDTO cliente)
         {
@@ -127,75 +34,8 @@ namespace GCP.Front.Forms
             mkTelefoneAlt.Text = cliente.Telefone;
             txtEmailAlt.Text = cliente.Email;
             _endereco = cliente.Endereco;
+            txtFullEnderecoAlt.Text = cliente.Endereco.EnderecoCompleto();
         }
-
-        private void btnIrCadastrar_Click(object sender, EventArgs e)
-        {
-            tabControlProduto.SelectedTab = tabAdd;
-        }
-
-        private void btnRemover_Click(object sender, EventArgs e)
-        {
-            var result = MessageBox.Show("Tem certeza que deseja excluir esse registro?",
-             "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    _clienteServices.Remove(_id);
-
-                    MessageBox.Show("Registro excluído com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearTextBoxAlt();
-                    tabControlProduto.SelectedTab = tabList;
-                    (tabEdit as Control).Enabled = false;
-                }
-                catch (DomainExceptionValidate dev)
-                {
-                    MessageBox.Show("Não foi possível inserir o registro. Mensagem: " + dev.Message, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Ops! Aconteceu algum problema. Verifique a conexão com o banco de dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-        }
-
-        private void btnAtualizarList_Click(object sender, EventArgs e)
-        {
-            if (dtGridCliente.CurrentRow.Cells[0].Value != null)
-            {
-                (tabEdit as Control).Enabled = true;
-
-                var id = (int)dtGridCliente.CurrentRow.Cells[0].Value;
-
-                _id = id;
-
-                PreencherAlterar(_clienteServices.GetById(id));
-
-                tabControlProduto.SelectedTab = tabEdit;
-            }
-            else
-            {
-                MessageBox.Show("Selecione uma linha.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void btnPesquisa_Click(object sender, EventArgs e)
-        {
-            var pesquisa = txtPesquisa.Text;
-
-            if (string.IsNullOrWhiteSpace(pesquisa))
-            {
-                DataBind(null);
-                return;
-            }
-
-            var result = _clienteServices.Search(pesquisa);
-            DataBind(result.ToList());
-        }
-
 
         private bool ValidateFieldsAlt()
         {
@@ -246,14 +86,14 @@ namespace GCP.Front.Forms
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(mkCpf.Text))
+            if (string.IsNullOrWhiteSpace(mkCpf.Text.Replace(".", "").Replace("-", "")))
             {
                 MessageBox.Show("Campo Cpf obrigatório!", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mkCpf.Focus();
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(mkTelefone.Text))
+            if (string.IsNullOrWhiteSpace(mkTelefone.Text.Replace("(", "").Replace(")", "").Replace("-", "")))
             {
                 MessageBox.Show("Campo Telefone obrigatório!", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 mkTelefone.Focus();
@@ -267,10 +107,37 @@ namespace GCP.Front.Forms
                 return false;
             }
 
-            if (_endereco is null)
+            if (_endereco is null && !ValidarEndereco())
             {
-                MessageBox.Show("Endereço obrigatório!", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Endereço obrigatório! Preencha todos os campos adequadamente.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtFullEndereco.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidarEndereco()
+        {
+            if (string.IsNullOrEmpty(_endereco.Logradouro))
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(_endereco.Numero))
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(_endereco.Bairro))
+            {
+                return false;
+            }
+            else if (string.IsNullOrEmpty(_endereco.Cep))
+            {
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(_endereco.Estado))
+            {
                 return false;
             }
 
@@ -285,7 +152,7 @@ namespace GCP.Front.Forms
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void ClearTextBox()
@@ -294,7 +161,8 @@ namespace GCP.Front.Forms
             mkCpf.Text = string.Empty;
             mkTelefone.Text = string.Empty;
             txtEmail.Text = string.Empty;
-            _endereco = null;
+            txtFullEndereco.Text = string.Empty;
+            _endereco = new EnderecoDTO();
         }
 
         private void ClearTextBoxAlt()
@@ -303,7 +171,8 @@ namespace GCP.Front.Forms
             mkCpfAlt.Text = string.Empty;
             txtEmailAlt.Text = string.Empty;
             mkTelefoneAlt.Text = string.Empty;
-            _endereco = null;
+            txtFullEnderecoAlt.Text = string.Empty;
+            _endereco = new EnderecoDTO();
             _id = 0;
 
             cBAlterar.Checked = false;
@@ -340,10 +209,6 @@ namespace GCP.Front.Forms
             return dto;
         }
 
-        private bool ValidaDecimal(string text)
-        {
-            return decimal.TryParse(text, out var valor);
-        }
         private void DataBind(IList<ClienteDTO>? clientes = null)
         {
             if (clientes is null)
@@ -360,7 +225,7 @@ namespace GCP.Front.Forms
             dtGridCliente.Columns.Add("Telefone", "Telefone");
 
             dtGridCliente.Columns[0].Visible = false;
-            dtGridCliente.Columns[1].Width = 200;
+            dtGridCliente.Columns[1].Width = 450;
             dtGridCliente.Columns[2].Width = 200;
             dtGridCliente.Columns[3].Width = 100;
             dtGridCliente.Columns[4].Width = 200;
@@ -391,11 +256,197 @@ namespace GCP.Front.Forms
 
         private void btnEndereco_Click(object sender, EventArgs e)
         {
-            if(_endereco is null)
-                _endereco = new EnderecoDTO();
 
-            var enderecoFrom = new EnderecoForm(ref _endereco);
-            enderecoFrom.ShowDialog();
+            if(_enderecoFromCad is null || _enderecoFromCad.IsDisposed)
+            {
+                _enderecoFromCad = new EnderecoForm(_endereco, txtFullEndereco);
+                _enderecoFromCad.Show();
+            }
+            else
+            {
+                _enderecoFromCad.BringToFront();
+            }
+        }
+
+        private void btnCadastrar_Click_1(object sender, EventArgs e)
+        {
+
+            if (ValidateFieldsCad())
+            {
+                try
+                {
+                    var cliente = CastFormCadToDto();
+
+                    _clienteServices.Add(cliente);
+
+                    MessageBox.Show("Cadastro efetuado com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ClearTextBox();
+                    GoToList();
+                }
+                catch (DomainExceptionValidate dev)
+                {
+                    MessageBox.Show("Não foi possível inserir o registro. Mensagem: " + dev.Message, "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ops! Aconteceu algum problema. Verifique a conexão com o banco de dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnIrCadastrar_Click_1(object sender, EventArgs e)
+        {
+            tabControlProduto.SelectedTab = tabAdd;
+        }
+
+        private void btnAtualizarList_Click_1(object sender, EventArgs e)
+        {
+            if (dtGridCliente.CurrentRow.Cells[0].Value != null)
+            {
+                (tabEdit as Control).Enabled = true;
+
+                var id = (int)dtGridCliente.CurrentRow.Cells[0].Value;
+
+                _id = id;
+
+                PreencherAlterar(_clienteServices.GetById(id));
+
+                tabControlProduto.SelectedTab = tabEdit;
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma linha.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnPesquisa_Click_1(object sender, EventArgs e)
+        {
+            var pesquisa = txtPesquisa.Text;
+
+            if (string.IsNullOrWhiteSpace(pesquisa))
+            {
+                DataBind(null);
+                return;
+            }
+
+            var result = _clienteServices.Search(pesquisa);
+            DataBind(result.ToList());
+        }
+
+        private void dtGridCliente_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dtGridCliente.CurrentRow.Cells[0].Value != null)
+            {
+                (tabEdit as Control).Enabled = true;
+
+                var id = (int)dtGridCliente.CurrentRow.Cells[0].Value;
+
+                _id = id;
+
+                PreencherAlterar(_clienteServices.GetById(id));
+
+                tabControlProduto.SelectedTab = tabEdit;
+            }
+        }
+
+        private void btnVotarCad_Click_1(object sender, EventArgs e)
+        {
+            tabControlProduto.SelectedTab = tabList;
+        }
+
+        private void btnVoltarEdit_Click_1(object sender, EventArgs e)
+        {
+            ClearTextBoxAlt();
+            tabControlProduto.SelectedTab = tabList;
+        }
+
+        private void btnRemover_Click_1(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Tem certeza que deseja excluir esse registro?",
+            "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    _clienteServices.Remove(_id);
+
+                    MessageBox.Show("Registro excluído com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearTextBoxAlt();
+                    DataBind();
+                    tabControlProduto.SelectedTab = tabList;
+                    (tabEdit as Control).Enabled = false;
+                }
+                catch (DomainExceptionValidate dev)
+                {
+                    MessageBox.Show("Não foi possível inserir o registro. Mensagem: " + dev.Message, "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ops! Aconteceu algum problema. Verifique a conexão com o banco de dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void cBAlterar_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (cBAlterar.Checked)
+            {
+                gbAlterar.Enabled = true;
+            }
+            else
+            {
+                gbAlterar.Enabled = false;
+            }
+        }
+
+        private void btnSalvar_Click_1(object sender, EventArgs e)
+        {
+            if (ValidateFieldsAlt())
+            {
+                var result = MessageBox.Show("Tem certeza que deseja alterar esse registro?",
+             "Alterar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        var cliente = CastFormAltToDto();
+
+                        _clienteServices.Update(cliente);
+
+                        MessageBox.Show("Registro atualizado com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        ClearTextBoxAlt();
+                        GoToList();
+                    }
+                    catch (DomainExceptionValidate dev)
+                    {
+                        MessageBox.Show("Não foi possível inserir o registro. Mensagem: " + dev.Message, "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Ops! Aconteceu algum problema. Verifique a conexão com o banco de dados e tente novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+            }
+        }
+
+        private void btnEnderecoAlt_Click(object sender, EventArgs e)
+        {
+            
+            if(_enderecoFromAlt is null || _enderecoFromAlt.IsDisposed)
+            {
+                _enderecoFromAlt = new EnderecoForm(_endereco, txtFullEnderecoAlt);
+                _enderecoFromAlt.Show();
+            }
+            else
+            {
+                _enderecoFromAlt.BringToFront();
+            }
+           
         }
     }
 }

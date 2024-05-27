@@ -11,7 +11,10 @@ namespace GCP.App.Profiles
         {
             CreateMap<ProdutoDTO, Produto>().ReverseMap();
             CreateMap<ClienteDTO, Cliente>()
-                .ConstructUsing(a => new Cliente(a.Nome, a.Cpf, a.Endereco.CastToEnderecoVO(), a.Telefone, a.Email));
+                .ConstructUsing(a => new Cliente(a.Nome, a.Cpf, a.Endereco.CastToEnderecoVO(), a.Telefone, a.Email))
+                .ForMember(a => a.Id, op => op.Ignore())
+                .ForMember(a => a.Endereco, op => op.Ignore());
+
             CreateMap<Cliente, ClienteDTO>()
                 .ForMember(a => a.Endereco, op => op.MapFrom(a => new EnderecoDTO(a.Endereco)));
         }

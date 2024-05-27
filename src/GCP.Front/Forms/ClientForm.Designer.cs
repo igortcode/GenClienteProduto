@@ -110,6 +110,7 @@ namespace GCP.Front.Forms
             btnAtualizarList.TabIndex = 4;
             btnAtualizarList.Text = "Atualizar";
             btnAtualizarList.UseVisualStyleBackColor = true;
+            btnAtualizarList.Click += btnAtualizarList_Click_1;
             // 
             // btnPesquisa
             // 
@@ -119,6 +120,7 @@ namespace GCP.Front.Forms
             btnPesquisa.TabIndex = 3;
             btnPesquisa.Text = "Pesquisar";
             btnPesquisa.UseVisualStyleBackColor = true;
+            btnPesquisa.Click += btnPesquisa_Click_1;
             // 
             // txtPesquisa
             // 
@@ -135,6 +137,7 @@ namespace GCP.Front.Forms
             btnIrCadastrar.TabIndex = 1;
             btnIrCadastrar.Text = "Novo";
             btnIrCadastrar.UseVisualStyleBackColor = true;
+            btnIrCadastrar.Click += btnIrCadastrar_Click_1;
             // 
             // dtGridCliente
             // 
@@ -144,6 +147,7 @@ namespace GCP.Front.Forms
             dtGridCliente.ReadOnly = true;
             dtGridCliente.Size = new Size(959, 427);
             dtGridCliente.TabIndex = 0;
+            dtGridCliente.RowHeaderMouseDoubleClick += dtGridCliente_RowHeaderMouseDoubleClick;
             // 
             // tabAdd
             // 
@@ -173,7 +177,7 @@ namespace GCP.Front.Forms
             btnEndereco.Location = new Point(411, 284);
             btnEndereco.Name = "btnEndereco";
             btnEndereco.Size = new Size(107, 23);
-            btnEndereco.TabIndex = 19;
+            btnEndereco.TabIndex = 5;
             btnEndereco.Text = "Add Endereço";
             btnEndereco.UseVisualStyleBackColor = true;
             btnEndereco.Click += btnEndereco_Click;
@@ -201,7 +205,7 @@ namespace GCP.Front.Forms
             txtEmail.Location = new Point(31, 137);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(178, 23);
-            txtEmail.TabIndex = 16;
+            txtEmail.TabIndex = 3;
             // 
             // label3
             // 
@@ -218,7 +222,7 @@ namespace GCP.Front.Forms
             mkTelefone.Mask = "(00) 00000-0000";
             mkTelefone.Name = "mkTelefone";
             mkTelefone.Size = new Size(95, 23);
-            mkTelefone.TabIndex = 14;
+            mkTelefone.TabIndex = 4;
             // 
             // mkCpf
             // 
@@ -226,7 +230,7 @@ namespace GCP.Front.Forms
             mkCpf.Mask = "000,000,000-00";
             mkCpf.Name = "mkCpf";
             mkCpf.Size = new Size(83, 23);
-            mkCpf.TabIndex = 12;
+            mkCpf.TabIndex = 2;
             // 
             // label5
             // 
@@ -268,9 +272,10 @@ namespace GCP.Front.Forms
             btnVotarCad.Location = new Point(770, 491);
             btnVotarCad.Name = "btnVotarCad";
             btnVotarCad.Size = new Size(97, 29);
-            btnVotarCad.TabIndex = 1;
+            btnVotarCad.TabIndex = 7;
             btnVotarCad.Text = "Voltar";
             btnVotarCad.UseVisualStyleBackColor = true;
+            btnVotarCad.Click += btnVotarCad_Click_1;
             // 
             // btnCadastrar
             // 
@@ -280,6 +285,7 @@ namespace GCP.Front.Forms
             btnCadastrar.TabIndex = 6;
             btnCadastrar.Text = "Cadastrar";
             btnCadastrar.UseVisualStyleBackColor = true;
+            btnCadastrar.Click += btnCadastrar_Click_1;
             // 
             // tabEdit
             // 
@@ -303,6 +309,7 @@ namespace GCP.Front.Forms
             cBAlterar.TabIndex = 1;
             cBAlterar.Text = "Alterar";
             cBAlterar.UseVisualStyleBackColor = true;
+            cBAlterar.CheckedChanged += cBAlterar_CheckedChanged_1;
             // 
             // gbAlterar
             // 
@@ -332,9 +339,10 @@ namespace GCP.Front.Forms
             btnEnderecoAlt.Location = new Point(416, 284);
             btnEnderecoAlt.Name = "btnEnderecoAlt";
             btnEnderecoAlt.Size = new Size(107, 23);
-            btnEnderecoAlt.TabIndex = 35;
+            btnEnderecoAlt.TabIndex = 32;
             btnEnderecoAlt.Text = "Endereço";
             btnEnderecoAlt.UseVisualStyleBackColor = true;
+            btnEnderecoAlt.Click += btnEnderecoAlt_Click;
             // 
             // txtFullEnderecoAlt
             // 
@@ -358,7 +366,7 @@ namespace GCP.Front.Forms
             txtEmailAlt.Location = new Point(36, 137);
             txtEmailAlt.Name = "txtEmailAlt";
             txtEmailAlt.Size = new Size(178, 23);
-            txtEmailAlt.TabIndex = 32;
+            txtEmailAlt.TabIndex = 30;
             // 
             // label7
             // 
@@ -375,7 +383,7 @@ namespace GCP.Front.Forms
             mkTelefoneAlt.Mask = "(00) 00000-0000";
             mkTelefoneAlt.Name = "mkTelefoneAlt";
             mkTelefoneAlt.Size = new Size(95, 23);
-            mkTelefoneAlt.TabIndex = 30;
+            mkTelefoneAlt.TabIndex = 31;
             // 
             // mkCpfAlt
             // 
@@ -417,25 +425,27 @@ namespace GCP.Front.Forms
             txtNomeAlt.Location = new Point(33, 66);
             txtNomeAlt.Name = "txtNomeAlt";
             txtNomeAlt.Size = new Size(490, 23);
-            txtNomeAlt.TabIndex = 25;
+            txtNomeAlt.TabIndex = 28;
             // 
             // btnRemover
             // 
             btnRemover.Location = new Point(754, 446);
             btnRemover.Name = "btnRemover";
             btnRemover.Size = new Size(100, 30);
-            btnRemover.TabIndex = 24;
+            btnRemover.TabIndex = 34;
             btnRemover.Text = "Excluir";
             btnRemover.UseVisualStyleBackColor = true;
+            btnRemover.Click += btnRemover_Click_1;
             // 
             // btnSalvar
             // 
             btnSalvar.Location = new Point(860, 446);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(93, 29);
-            btnSalvar.TabIndex = 0;
+            btnSalvar.TabIndex = 33;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click_1;
             // 
             // btnVoltarEdit
             // 
@@ -445,6 +455,7 @@ namespace GCP.Front.Forms
             btnVoltarEdit.TabIndex = 1;
             btnVoltarEdit.Text = "Voltar";
             btnVoltarEdit.UseVisualStyleBackColor = true;
+            btnVoltarEdit.Click += btnVoltarEdit_Click_1;
             // 
             // ClientForm
             // 

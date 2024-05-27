@@ -56,9 +56,9 @@ namespace GCP.App.Services
 
         public IEnumerable<ClienteDTO> Search(string search)
         {
-            var entities = _clienteRepository.GetAll();
+            var entities = _clienteRepository.Search(search);
 
-            return _mapper.Map<IEnumerable<ClienteDTO>>(search);
+            return _mapper.Map<IEnumerable<ClienteDTO>>(entities);
         }
 
         public void Update(ClienteDTO dto)

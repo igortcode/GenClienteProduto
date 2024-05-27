@@ -13,8 +13,8 @@ namespace GCP.Repository.Repository
 
         public int Add(Cliente entity)
         {
-            var sql = @"INSERT INTO Cliente (""Nome"", ""Cpf"", ""Cep"", ""Logradouro"", ""Bairro"", ""Cidade"", ""Estado"", ""Numero"", ""Complemento"", ""Telefone"", ""Email"", ""DataInclusao"")" +
-                "VALUES( @Nome, @Cpf, @Cep, @Logradouro, @Bairro, @Cidade, @Estado, @Numero, @Complemento, @Telefone, @Email, @DataInclusao) RETURNING Id";
+            var sql = @"INSERT INTO ""Cliente"" (""Nome"", ""Cpf"", ""Cep"", ""Logradouro"", ""Bairro"", ""Cidade"", ""Estado"", ""Numero"", ""Complemento"", ""Telefone"", ""Email"", ""DataInclusao"")
+                        VALUES( @Nome, @Cpf, @Cep, @Logradouro, @Bairro, @Cidade, @Estado, @Numero, @Complemento, @Telefone, @Email, @DataInclusao) RETURNING ""Id"" ";
 
             try
             {
@@ -135,8 +135,8 @@ namespace GCP.Repository.Repository
                 ""Cidade"" LIKE @pesquisa OR
                 ""Estado"" LIKE @pesquisa OR
                 ""Numero"" LIKE @pesquisa OR
-                ""Complemento"" LIKE @pesquisa OR
-                ORDER BY ""DataInclusao"" DESC";
+                ""Complemento"" LIKE @pesquisa
+                 ORDER BY ""DataInclusao"" DESC";
 
             try
             {

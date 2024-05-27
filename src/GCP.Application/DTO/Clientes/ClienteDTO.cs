@@ -8,6 +8,5 @@
         public EnderecoDTO? Endereco { get; set; }
         public string? Telefone { get; set; }
         public string? Email { get; set; }
-        public DateTime DataInclusao { get; set; }
     }
 }

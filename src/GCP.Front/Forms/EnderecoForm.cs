@@ -38,16 +38,22 @@ namespace GCP.Front.Forms
             {"TO", "Tocantins"},
         };
         private EnderecoDTO _endereco;
+        private readonly TextBox _txtEndereco;
 
-        public EnderecoForm(ref EnderecoDTO endereco)
+        public EnderecoForm(EnderecoDTO endereco, TextBox txtEndereco)
         {
             _endereco = endereco;
+            _txtEndereco = txtEndereco;
             InitializeComponent();
             InicializaDados();
+
         }
 
         private void InicializaDados()
         {
+            cbEstado.Items.AddRange(StatesFromBrazil.Select(a => a.Key).ToArray());
+            pbLoading.Visible = false;
+           
             if (!string.IsNullOrWhiteSpace(_endereco.Cep))
             {
                 PreencheEndereco(_endereco);
@@ -59,7 +65,6 @@ namespace GCP.Front.Forms
             if (mkCep.Text.Length == 10 && string.IsNullOrWhiteSpace(_endereco.Cep))
             {
                 BuscarEndereco();
-                cbEstado.Items.AddRange(StatesFromBrazil.Select(a => a.Key).ToArray());
             }
         }
 
@@ -69,7 +74,16 @@ namespace GCP.Front.Forms
             {
                 try
                 {
+                    pbLoading.Visible = true;
+
                     var result = httpClient.GetFromJsonAsync<ViaCepResult>($"https://viacep.com.br/ws/{mkCep.Text.Replace(".", "").Replace("-", "")}/json/").Result;
+
+                    pbLoading.Visible = false;
+                    if (string.IsNullOrEmpty(result.Cep))
+                    {
+                        mkCep.Text = string.Empty;
+                        throw new ArgumentException("Insira um Cep válido");
+                    }
 
                     PreencheEndereco(result);
                 }
@@ -86,6 +100,14 @@ namespace GCP.Front.Forms
             txtBairro.Text = result.Bairro;
             txtCidade.Text = result.Localidade;
             cbEstado.SelectedIndex = cbEstado.FindString(result.Uf);
+
+            txtLogradouro.Enabled = true;
+            txtBairro.Enabled = true;
+            txtCidade.Enabled = true;
+            txtNumero.Enabled = true;
+            txtComplemento.Enabled = true;
+            mkCep.Enabled = true;
+            cbEstado.Enabled = true;
         }
 
         private void PreencheEndereco(EnderecoDTO? result)
@@ -94,8 +116,17 @@ namespace GCP.Front.Forms
             txtLogradouro.Text = result.Logradouro;
             txtBairro.Text = result.Bairro;
             txtCidade.Text = result.Cidade;
-            cbEstado.SelectedIndex = cbEstado.FindStringExact(result.Estado);
+            cbEstado.SelectedIndex = cbEstado.FindString(result.Estado);
             txtComplemento.Text = result.Complemento;
+            txtNumero.Text = result.Numero;
+
+            txtLogradouro.Enabled = true;
+            txtBairro.Enabled = true;
+            txtCidade.Enabled = true;
+            txtNumero.Enabled = true;
+            txtComplemento.Enabled = true;
+            mkCep.Enabled = true;
+            cbEstado.Enabled = true;
 
         }
 
@@ -103,19 +134,19 @@ namespace GCP.Front.Forms
         {
             if (ValidaCampos())
             {
-                _endereco = new EnderecoDTO
-                {
-                    Cidade = txtCidade.Text,
-                    Bairro = txtBairro.Text,
-                    Cep = txtCidade.Text,
-                    Complemento = txtComplemento.Text,
-                    Estado = cbEstado.SelectedText,
-                    Logradouro = txtLogradouro.Text,
-                    Numero = txtNumero.Text,
-                };
+
+                _endereco.Cidade = txtCidade.Text;
+                _endereco.Bairro = txtBairro.Text;
+                _endereco.Cep = mkCep.Text;
+                _endereco.Complemento = txtComplemento.Text;
+                _endereco.Estado = cbEstado.SelectedItem?.ToString();
+                _endereco.Logradouro = txtLogradouro.Text;
+                _endereco.Numero = txtNumero.Text;
+
+                _txtEndereco.Text = _endereco.EnderecoCompleto();
 
                 LimparCampos();
-                this.Close();
+                Dispose();
             }
         }
 
@@ -162,7 +193,7 @@ namespace GCP.Front.Forms
         private void btnFechar_Click(object sender, EventArgs e)
         {
             LimparCampos();
-            this.Close();
+            Dispose();
         }
 
         private void LimparCampos()
@@ -171,9 +202,14 @@ namespace GCP.Front.Forms
             txtLogradouro.Text = string.Empty;
             txtCidade.Text = string.Empty;
             txtComplemento.Text = string.Empty;
-            txtNumero.Text = string.Empty;  
+            txtNumero.Text = string.Empty;
             txtBairro.Text = string.Empty;
-            cbEstado.SelectedIndex = 0;
+            cbEstado.SelectedIndex = 1;
+        }
+
+        private void pbLoading_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

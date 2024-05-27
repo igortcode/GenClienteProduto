@@ -35,7 +35,7 @@ namespace GCP.App.DTO.Clientes
 
         public string EnderecoCompleto()
         {
-            return $"{Logradouro} - Bairro: {Bairro} - Cidade: {Cidade}/{Estado} - Número: {Numero}";
+            return $"{Logradouro}-{Numero}/{Bairro}/{Cidade}-{Estado}/{Cep}";
         }
 
 
