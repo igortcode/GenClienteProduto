@@ -16,7 +16,7 @@ namespace GCP.Front
             var host = CreateHostBuilder().Build();
             ServiceProvider = host.Services;
 
-            Application.Run(ServiceProvider.GetRequiredService<Main>());
+            Application.Run(ServiceProvider.GetRequiredService<MainForm>());
         }
 
         static IHostBuilder CreateHostBuilder()
@@ -24,7 +24,7 @@ namespace GCP.Front
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
                     services.ResolveDependency();
-                    services.AddTransient<Main>();
+                    services.AddTransient<MainForm>();
                 });
         }
     }

@@ -5,12 +5,12 @@ using GCP.Core.Validations.CustomExceptions;
 
 namespace GCP.Front.Forms
 {
-    public partial class ProdutoFrm : Form
+    public partial class ProdutoForm : Form
     {
         private IProdutoServices _produtoServices;
         private int _id;
 
-        public ProdutoFrm(IProdutoServices produtoServices)
+        public ProdutoForm(IProdutoServices produtoServices)
         {
             _produtoServices = produtoServices;
             InitializeComponent();
@@ -106,17 +106,24 @@ namespace GCP.Front.Forms
 
         private void dtGridProduto_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dtGridProduto.CurrentRow.Cells[0].Value != null)
+            try
             {
-                (tabEdit as Control).Enabled = true;
+                if (dtGridProduto.CurrentRow.Cells[0].Value != null)
+                {
+                    (tabEdit as Control).Enabled = true;
 
-                var id = (int)dtGridProduto.CurrentRow.Cells[0].Value;
+                    var id = (int)dtGridProduto.CurrentRow.Cells[0].Value;
 
-                _id = id;
+                    _id = id;
 
-                PreencherAlterar(_produtoServices.GetById(id));
+                    PreencherAlterar(_produtoServices.GetById(id));
 
-                tabControlProduto.SelectedTab = tabEdit;
+                    tabControlProduto.SelectedTab = tabEdit;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível buscar o produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -165,36 +172,50 @@ namespace GCP.Front.Forms
 
         private void btnAtualizarList_Click(object sender, EventArgs e)
         {
-            if (dtGridProduto.CurrentRow.Cells[0].Value != null)
+            try
             {
-                (tabEdit as Control).Enabled = true;
+                if (dtGridProduto.CurrentRow.Cells[0].Value != null)
+                {
+                    (tabEdit as Control).Enabled = true;
 
-                var id = (int)dtGridProduto.CurrentRow.Cells[0].Value;
+                    var id = (int)dtGridProduto.CurrentRow.Cells[0].Value;
 
-                _id = id;
+                    _id = id;
 
-                PreencherAlterar(_produtoServices.GetById(id));
+                    PreencherAlterar(_produtoServices.GetById(id));
 
-                tabControlProduto.SelectedTab = tabEdit;
+                    tabControlProduto.SelectedTab = tabEdit;
+                }
+                else
+                {
+                    MessageBox.Show("Selecione uma linha.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Selecione uma linha.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Não foi possível buscar o produto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnPesquisa_Click(object sender, EventArgs e)
         {
-            var pesquisa = txtPesquisa.Text;
-
-            if (string.IsNullOrWhiteSpace(pesquisa))
+            try
             {
-                DataBind(null);
-                return;
-            }
+                var pesquisa = txtPesquisa.Text;
 
-            var result = _produtoServices.Search(pesquisa);
-            DataBind(result.ToList());
+                if (string.IsNullOrWhiteSpace(pesquisa))
+                {
+                    DataBind(null);
+                    return;
+                }
+
+                var result = _produtoServices.Search(pesquisa);
+                DataBind(result.ToList());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível buscar os produtos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -340,46 +361,54 @@ namespace GCP.Front.Forms
         {
             return decimal.TryParse(text, out var valor);
         }
-        private void DataBind(IList<ProdutoDTO>? produtos = null)
+        private void DataBind(IList<ProdutoDTO> produtos = null)
         {
-            if (produtos is null)
-                produtos = _produtoServices.GetAll().ToList();
-
-            dtGridProduto.Rows.Clear();
-            dtGridProduto.Columns.Clear();
-            dtGridProduto.Refresh();
-
-            dtGridProduto.Columns.Add("Id", "Id");
-            dtGridProduto.Columns.Add("Nome", "Nome");
-            dtGridProduto.Columns.Add("Codigo", "Código");
-            dtGridProduto.Columns.Add("Preco", "Preço");
-            dtGridProduto.Columns.Add("Qtd", "Quantidade");
-            dtGridProduto.Columns.Add("Descricao", "Descrição");
-
-            dtGridProduto.Columns[0].Visible = false;
-            dtGridProduto.Columns[1].Width = 200;
-            dtGridProduto.Columns[2].Width = 200;
-            dtGridProduto.Columns[3].Width = 100;
-            dtGridProduto.Columns[4].Width = 100;
-            dtGridProduto.Columns[5].Width = 500;
-
-            if (produtos.Count() < 1)
+            try
             {
-                dtGridProduto.Rows.Add(1);
-            }
-            else
-            {
-                dtGridProduto.Rows.Add(produtos.Count);
+                if (produtos is null)
+                    produtos = _produtoServices.GetAll().ToList();
 
-                for (int i = 0; i < produtos.Count; i++)
+                dtGridProduto.Rows.Clear();
+                dtGridProduto.Columns.Clear();
+                dtGridProduto.Refresh();
+
+                dtGridProduto.Columns.Add("Id", "Id");
+                dtGridProduto.Columns.Add("Nome", "Nome");
+                dtGridProduto.Columns.Add("Codigo", "Código");
+                dtGridProduto.Columns.Add("Preco", "Preço");
+                dtGridProduto.Columns.Add("Qtd", "Quantidade");
+                dtGridProduto.Columns.Add("Descricao", "Descrição");
+
+                dtGridProduto.Columns[0].Visible = false;
+                dtGridProduto.Columns[1].Width = 200;
+                dtGridProduto.Columns[2].Width = 200;
+                dtGridProduto.Columns[3].Width = 100;
+                dtGridProduto.Columns[4].Width = 100;
+                dtGridProduto.Columns[5].Width = 500;
+
+                if (produtos.Count() < 1)
                 {
-                    dtGridProduto.Rows[i].Cells[0].Value = produtos[i].Id;
-                    dtGridProduto.Rows[i].Cells[1].Value = produtos[i].Nome;
-                    dtGridProduto.Rows[i].Cells[2].Value = produtos[i].Codigo;
-                    dtGridProduto.Rows[i].Cells[3].Value = produtos[i].Preco;
-                    dtGridProduto.Rows[i].Cells[4].Value = produtos[i].Quantidade;
-                    dtGridProduto.Rows[i].Cells[5].Value = produtos[i].Descricao;
+                    dtGridProduto.Rows.Add(1);
                 }
+                else
+                {
+                    dtGridProduto.Rows.Add(produtos.Count);
+
+                    for (int i = 0; i < produtos.Count; i++)
+                    {
+                        dtGridProduto.Rows[i].Cells[0].Value = produtos[i].Id;
+                        dtGridProduto.Rows[i].Cells[1].Value = produtos[i].Nome;
+                        dtGridProduto.Rows[i].Cells[2].Value = produtos[i].Codigo;
+                        dtGridProduto.Rows[i].Cells[3].Value = produtos[i].Preco;
+                        dtGridProduto.Rows[i].Cells[4].Value = produtos[i].Quantidade;
+                        dtGridProduto.Rows[i].Cells[5].Value = produtos[i].Descricao;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Não foi possível buscar os produtos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

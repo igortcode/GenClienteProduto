@@ -3,17 +3,18 @@ using GCP.Front.Forms;
 
 namespace GCP.Front
 {
-    public partial class Main : Form
+    public partial class MainForm : Form
     {
         private readonly IProdutoServices _produtoServices;
         private readonly IClienteServices _clienteServices;
-        private ProdutoFrm? _formProduto;
-        private ClientForm? _formCliente;
+        private ProdutoForm _formProduto;
+        private ClientForm _formCliente;
+        private VendaForm _formVenda;
 
-        public Main(IProdutoServices produtoServices, IClienteServices clienteServices)
+        public MainForm(IProdutoServices produtoServices, IClienteServices clienteServices)
         {
             _produtoServices = produtoServices;
-            _clienteServices = clienteServices; 
+            _clienteServices = clienteServices;
             InitializeComponent();
         }
 
@@ -21,7 +22,7 @@ namespace GCP.Front
         {
             if (_formProduto == null)
             {
-                _formProduto = new ProdutoFrm(_produtoServices);
+                _formProduto = new ProdutoForm(_produtoServices);
                 _formProduto.TopLevel = false;
                 _formProduto.FormBorderStyle = FormBorderStyle.None;
                 mainPanel.Controls.Add(_formProduto);
@@ -48,6 +49,23 @@ namespace GCP.Front
             else
             {
                 _formCliente?.BringToFront();
+            }
+        }
+
+        private void btnVenda_Click(object sender, EventArgs e)
+        {
+            if (_formVenda == null)
+            {
+                _formVenda = new VendaForm(_clienteServices, _produtoServices);
+                _formVenda.TopLevel = false;
+                _formVenda.FormBorderStyle = FormBorderStyle.None;
+                mainPanel.Controls.Add(_formVenda);
+                _formVenda.Show();
+                _formVenda.BringToFront();
+            }
+            else
+            {
+                _formVenda?.BringToFront();
             }
         }
     }

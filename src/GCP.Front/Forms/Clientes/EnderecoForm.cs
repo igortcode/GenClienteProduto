@@ -94,7 +94,7 @@ namespace GCP.Front.Forms
             }
         }
 
-        private void PreencheEndereco(ViaCepResult? result)
+        private void PreencheEndereco(ViaCepResult result)
         {
             txtLogradouro.Text = result.Logradouro;
             txtBairro.Text = result.Bairro;
@@ -110,7 +110,7 @@ namespace GCP.Front.Forms
             cbEstado.Enabled = true;
         }
 
-        private void PreencheEndereco(EnderecoDTO? result)
+        private void PreencheEndereco(EnderecoDTO result)
         {
             mkCep.Text = result.Cep;
             txtLogradouro.Text = result.Logradouro;

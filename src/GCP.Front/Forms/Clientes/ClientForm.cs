@@ -147,7 +147,7 @@ namespace GCP.Front.Forms
         private void GoToList()
         {
             DataBind();
-            tabControlProduto.SelectedTab = tabList;
+            tabControlCliente.SelectedTab = tabList;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -209,7 +209,7 @@ namespace GCP.Front.Forms
             return dto;
         }
 
-        private void DataBind(IList<ClienteDTO>? clientes = null)
+        private void DataBind(IList<ClienteDTO> clientes = null)
         {
             if (clientes is null)
                 clientes = _clienteServices.GetAll().ToList();
@@ -297,7 +297,7 @@ namespace GCP.Front.Forms
 
         private void btnIrCadastrar_Click_1(object sender, EventArgs e)
         {
-            tabControlProduto.SelectedTab = tabAdd;
+            tabControlCliente.SelectedTab = tabAdd;
         }
 
         private void btnAtualizarList_Click_1(object sender, EventArgs e)
@@ -312,7 +312,7 @@ namespace GCP.Front.Forms
 
                 PreencherAlterar(_clienteServices.GetById(id));
 
-                tabControlProduto.SelectedTab = tabEdit;
+                tabControlCliente.SelectedTab = tabEdit;
             }
             else
             {
@@ -326,7 +326,7 @@ namespace GCP.Front.Forms
 
             if (string.IsNullOrWhiteSpace(pesquisa))
             {
-                DataBind(null);
+                DataBind();
                 return;
             }
 
@@ -346,19 +346,19 @@ namespace GCP.Front.Forms
 
                 PreencherAlterar(_clienteServices.GetById(id));
 
-                tabControlProduto.SelectedTab = tabEdit;
+                tabControlCliente.SelectedTab = tabEdit;
             }
         }
 
         private void btnVotarCad_Click_1(object sender, EventArgs e)
         {
-            tabControlProduto.SelectedTab = tabList;
+            tabControlCliente.SelectedTab = tabList;
         }
 
         private void btnVoltarEdit_Click_1(object sender, EventArgs e)
         {
             ClearTextBoxAlt();
-            tabControlProduto.SelectedTab = tabList;
+            tabControlCliente.SelectedTab = tabList;
         }
 
         private void btnRemover_Click_1(object sender, EventArgs e)
@@ -375,7 +375,7 @@ namespace GCP.Front.Forms
                     MessageBox.Show("Registro excluído com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearTextBoxAlt();
                     DataBind();
-                    tabControlProduto.SelectedTab = tabList;
+                    tabControlCliente.SelectedTab = tabList;
                     (tabEdit as Control).Enabled = false;
                 }
                 catch (DomainExceptionValidate dev)
