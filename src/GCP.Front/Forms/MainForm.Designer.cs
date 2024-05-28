@@ -1,7 +1,7 @@
 ﻿
 namespace GCP.Front
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -32,7 +32,7 @@ namespace GCP.Front
             btnProduto = new Button();
             mainPanel = new Panel();
             btnCliente = new Button();
-            button2 = new Button();
+            btnVenda = new Button();
             button3 = new Button();
             SuspendLayout();
             // 
@@ -52,7 +52,7 @@ namespace GCP.Front
             mainPanel.BackColor = SystemColors.Control;
             mainPanel.Location = new Point(178, 27);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(1004, 568);
+            mainPanel.Size = new Size(1004, 598);
             mainPanel.TabIndex = 1;
             // 
             // btnCliente
@@ -66,15 +66,16 @@ namespace GCP.Front
             btnCliente.UseVisualStyleBackColor = false;
             btnCliente.Click += btnCliente_Click;
             // 
-            // button2
+            // btnVenda
             // 
-            button2.BackColor = SystemColors.Control;
-            button2.Location = new Point(12, 185);
-            button2.Name = "button2";
-            button2.Size = new Size(143, 73);
-            button2.TabIndex = 3;
-            button2.Text = "Vendas";
-            button2.UseVisualStyleBackColor = false;
+            btnVenda.BackColor = SystemColors.Control;
+            btnVenda.Location = new Point(12, 185);
+            btnVenda.Name = "btnVenda";
+            btnVenda.Size = new Size(143, 73);
+            btnVenda.TabIndex = 3;
+            btnVenda.Text = "Vendas";
+            btnVenda.UseVisualStyleBackColor = false;
+            btnVenda.Click += btnVenda_Click;
             // 
             // button3
             // 
@@ -86,19 +87,19 @@ namespace GCP.Front
             button3.Text = "Relatórios";
             button3.UseVisualStyleBackColor = false;
             // 
-            // Main
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1194, 607);
+            ClientSize = new Size(1194, 637);
             Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(btnVenda);
             Controls.Add(btnCliente);
             Controls.Add(mainPanel);
             Controls.Add(btnProduto);
             MaximizeBox = false;
-            Name = "Main";
+            Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GCP - Gerenciador de Clientes e Produtos";
             ResumeLayout(false);
@@ -109,7 +110,7 @@ namespace GCP.Front
         private Button btnProduto;
         private Panel mainPanel;
         private Button btnCliente;
-        private Button button2;
+        private Button btnVenda;
         private Button button3;
     }
 }
