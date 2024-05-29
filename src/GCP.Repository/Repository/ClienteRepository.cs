@@ -2,6 +2,7 @@
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
+using System.Data;
 
 namespace GCP.Repository.Repository
 {
@@ -11,7 +12,7 @@ namespace GCP.Repository.Repository
         {
         }
 
-        public int Add(Cliente entity)
+        public int Add(Cliente entity, IDbTransaction transaction = null)
         {
             var sql = @"INSERT INTO ""Cliente"" (""Nome"", ""Cpf"", ""Cep"", ""Logradouro"", ""Bairro"", ""Cidade"", ""Estado"", ""Numero"", ""Complemento"", ""Telefone"", ""Email"", ""DataInclusao"")
                         VALUES( @Nome, @Cpf, @Cep, @Logradouro, @Bairro, @Cidade, @Estado, @Numero, @Complemento, @Telefone, @Email, @DataInclusao) RETURNING ""Id"" ";

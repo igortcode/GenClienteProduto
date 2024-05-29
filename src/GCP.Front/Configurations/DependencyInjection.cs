@@ -23,6 +23,7 @@ namespace GCP.Front.Configurations
             #region Service
             services.AddScoped<IProdutoServices, ProdutoServices>();
             services.AddScoped<IClienteServices, ClienteServices>();
+            services.AddScoped<IVendaServices, VendaServices>();
             #endregion
 
             var dbSettings = new DbSettings

@@ -36,6 +36,13 @@ namespace GCP.App.Services
             return _mapper.Map<IEnumerable<ProdutoDTO>>(entities);
         }
 
+        public ProdutoDTO GetByCodigo(string codigo)
+        {
+            var entity = _produtoRepository.GetByCodigo(codigo);
+
+            return _mapper.Map<ProdutoDTO>(entity);
+        }
+
         public ProdutoDTO GetById(int id)
         {
             var entity = _produtoRepository.GetById(id);

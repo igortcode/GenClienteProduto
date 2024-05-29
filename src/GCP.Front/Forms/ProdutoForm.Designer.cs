@@ -241,6 +241,7 @@
             // 
             // txtCodigo
             // 
+            txtCodigo.CharacterCasing = CharacterCasing.Upper;
             txtCodigo.Location = new Point(373, 66);
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(308, 23);
@@ -406,6 +407,7 @@
             // 
             // txtCodigoAlt
             // 
+            txtCodigoAlt.CharacterCasing = CharacterCasing.Upper;
             txtCodigoAlt.Location = new Point(370, 46);
             txtCodigoAlt.Name = "txtCodigoAlt";
             txtCodigoAlt.Size = new Size(308, 23);
@@ -447,13 +449,13 @@
             btnVoltarEdit.UseVisualStyleBackColor = true;
             btnVoltarEdit.Click += btnVoltarEdit_Click;
             // 
-            // ProdutoFrm
+            // ProdutoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1003, 585);
             Controls.Add(tabControlProduto);
-            Name = "ProdutoFrm";
+            Name = "ProdutoForm";
             Text = "Produto";
             tabControlProduto.ResumeLayout(false);
             tabList.ResumeLayout(false);

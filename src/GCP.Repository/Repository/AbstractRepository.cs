@@ -36,5 +36,12 @@ namespace GCP.Repository.Repository
                 DbConnection.Open();
             }
         }
+
+        public IDbTransaction BeginTransaction()
+        {
+            OpenConnection();
+
+            return DbConnection.BeginTransaction();
+        }
     }
 }

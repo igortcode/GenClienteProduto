@@ -60,6 +60,7 @@
             txtPesquisa.Name = "txtPesquisa";
             txtPesquisa.Size = new Size(228, 23);
             txtPesquisa.TabIndex = 5;
+            txtPesquisa.KeyUp += txtPesquisa_KeyUp;
             // 
             // dtGridProduto
             // 
@@ -68,8 +69,9 @@
             dtGridProduto.Name = "dtGridProduto";
             dtGridProduto.ReadOnly = true;
             dtGridProduto.Size = new Size(644, 291);
-            dtGridProduto.TabIndex = 4;
+            dtGridProduto.TabIndex = 1;
             dtGridProduto.RowHeaderMouseClick += dtGridProduto_RowHeaderMouseClick;
+            dtGridProduto.KeyUp += dtGridProduto_KeyUp;
             // 
             // txtNmProduto
             // 
@@ -95,7 +97,8 @@
             nUQtd.Maximum = new decimal(new int[] { 30000, 0, 0, 0 });
             nUQtd.Name = "nUQtd";
             nUQtd.Size = new Size(150, 23);
-            nUQtd.TabIndex = 9;
+            nUQtd.TabIndex = 2;
+            nUQtd.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // label2
             // 
@@ -111,10 +114,11 @@
             btnSelecionar.Location = new Point(550, 452);
             btnSelecionar.Name = "btnSelecionar";
             btnSelecionar.Size = new Size(109, 23);
-            btnSelecionar.TabIndex = 11;
+            btnSelecionar.TabIndex = 3;
             btnSelecionar.Text = "Selecionar";
             btnSelecionar.UseVisualStyleBackColor = true;
             btnSelecionar.Click += btnSelecionar_Click;
+            btnSelecionar.KeyUp += btnSelecionar_KeyUp;
             // 
             // btnCancelar
             // 

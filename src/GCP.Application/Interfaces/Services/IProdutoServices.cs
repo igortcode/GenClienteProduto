@@ -9,6 +9,7 @@ namespace GCP.App.Interfaces.Services
         IEnumerable<ProdutoDTO> GetAll();
         IEnumerable<ProdutoDTO> Search(string search);
         ProdutoDTO GetById(int id);
+        ProdutoDTO GetByCodigo(string codigo);
         void Remove(int id);
     }
 }

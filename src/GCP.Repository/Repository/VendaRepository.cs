@@ -1,8 +1,10 @@
 ﻿using Dapper;
+using GCP.App.DTO.Venda;
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
 using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace GCP.Repository.Repository
 {
@@ -12,15 +14,15 @@ namespace GCP.Repository.Repository
         {
         }
 
-        public int Add(Venda entity)
+        public int Add(Venda entity, IDbTransaction transaction = null)
         {
-            var sql = @"INSERT INTO ""Venda"" (""ClienteId"", ""ValorTotal"", ""TipoPagamento"", ""DataInclusao"" ) 
-                        VALUES(@ClienteId, @ValorTotal, @TipoPagamento, @DataInclusao) RETURNING ""Id""";
+            var sql = @"INSERT INTO ""Venda"" AS V (""ClienteId"", ""ValorTotal"", ""TipoPagamento"", ""DataInclusao"" ) 
+                        VALUES(@ClienteId, @ValorTotal, @TipoPagamento, @DataInclusao) RETURNING V.""Id""";
 
             try
             {
                 OpenConnection();
-                return DbConnection.ExecuteScalar<int>(sql, entity);
+                return DbConnection.ExecuteScalar<int>(sql, entity, transaction);
             }
             finally
             {
@@ -37,6 +39,40 @@ namespace GCP.Repository.Repository
                 OpenConnection();
 
                 return DbConnection.Query<Venda>(sql);
+            }
+            finally
+            {
+                DbConnection?.Close();
+            }
+        }
+
+        public IEnumerable<ObterVendaDTO> GetAllWithRelations()
+        {
+            var sql = @"SELECT 
+                            V.""Id"", 
+                            V.""ValorTotal"", 
+                            V.""TipoPagamento"",
+                            C.""Id"" ""ClienteId"",
+                            C.""Nome"" ""NomeCliente"",
+                            P.""Id"" ""ProdutoId"",
+                            P.""Nome"",
+                            PV.""Codigo"",
+                            PV.""Quantidade"",
+                            Pv.""Preco"",
+                        FROM ""Venda"" AS V 
+                        INNER JOIN ""Cliente"" AS C ON C.""Id"" = V.""ClienteId"" 
+                        INNER JOIN ""ProdutoXVenda"" AS PV ON PV.""VendaId"" = V.""Id"" 
+                        INNER JOIN ""Produto"" AS P ON PV.""ProdutoId"" = P.""Id""
+                        ORDER BY V.""DataInclusao"" DESC";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.Query<ObterVendaDTO, ProdutoXVendaDTO, ObterVendaDTO>(sql, (venda, produtos) => 
+                { venda.Produtos.Add(produtos); 
+                  return venda;
+                }, splitOn: "ProdutoId");
             }
             finally
             {

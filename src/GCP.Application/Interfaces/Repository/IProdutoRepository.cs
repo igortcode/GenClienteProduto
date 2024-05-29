@@ -5,6 +5,7 @@ namespace GCP.App.Interfaces.Repository
 {
     public interface IProdutoRepository : IGenericRepository<Produto>
     {
-        bool ExistByCode(string? code);
+        bool ExistByCode(string code);
+        Produto GetByCodigo(string code);
     }
 }

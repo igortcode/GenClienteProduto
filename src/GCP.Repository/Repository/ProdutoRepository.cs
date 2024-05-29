@@ -2,6 +2,7 @@
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
+using System.Data;
 
 namespace GCP.Repository.Repository
 {
@@ -9,7 +10,7 @@ namespace GCP.Repository.Repository
     {
         public ProdutoRepository(DbSettings options) : base(options) { }
 
-        public int Add(Produto entity)
+        public int Add(Produto entity, IDbTransaction transaction = null)
         {
             var sql = "INSERT INTO \"Produto\" (\"Nome\", \"Codigo\", \"Descricao\", \"Preco\", \"Quantidade\", \"DataInclusao\") " +
                         "VALUES(@Nome, @Codigo, @Descricao, @Preco, @Quantidade, @DataInclusao) RETURNING \"Id\"";
@@ -17,7 +18,7 @@ namespace GCP.Repository.Repository
             try
             {
                 OpenConnection();              
-                return DbConnection.ExecuteScalar<int>(sql, entity);
+                return DbConnection.ExecuteScalar<int>(sql, entity, transaction);
             }
             finally
             {
@@ -25,7 +26,7 @@ namespace GCP.Repository.Repository
             }
         }
 
-        public bool ExistByCode(string? code)
+        public bool ExistByCode(string code)
         {
             var sql = "SELECT COUNT(1) FROM \"Produto\" WHERE \"Codigo\" = @Code";
 
@@ -50,6 +51,22 @@ namespace GCP.Repository.Repository
                 OpenConnection();
 
                 return DbConnection.Query<Produto>(sql);
+            }
+            finally
+            {
+                DbConnection?.Close();
+            }
+        }
+
+        public Produto GetByCodigo(string code)
+        {
+            var sql = "SELECT * FROM \"Produto\" WHERE \"Codigo\" = @codigo";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.QueryFirstOrDefault<Produto>(sql, new { codigo = code });
             }
             finally
             {

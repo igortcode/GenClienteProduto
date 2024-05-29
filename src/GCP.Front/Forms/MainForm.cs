@@ -7,14 +7,16 @@ namespace GCP.Front
     {
         private readonly IProdutoServices _produtoServices;
         private readonly IClienteServices _clienteServices;
+        private readonly IVendaServices _vendaServices;
         private ProdutoForm _formProduto;
         private ClientForm _formCliente;
         private VendaForm _formVenda;
 
-        public MainForm(IProdutoServices produtoServices, IClienteServices clienteServices)
+        public MainForm(IProdutoServices produtoServices, IClienteServices clienteServices, IVendaServices vendaServices)
         {
             _produtoServices = produtoServices;
             _clienteServices = clienteServices;
+            _vendaServices = vendaServices;
             InitializeComponent();
         }
 
@@ -56,7 +58,7 @@ namespace GCP.Front
         {
             if (_formVenda == null)
             {
-                _formVenda = new VendaForm(_clienteServices, _produtoServices);
+                _formVenda = new VendaForm(_clienteServices, _produtoServices, _vendaServices);
                 _formVenda.TopLevel = false;
                 _formVenda.FormBorderStyle = FormBorderStyle.None;
                 mainPanel.Controls.Add(_formVenda);

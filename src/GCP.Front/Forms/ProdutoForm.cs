@@ -60,7 +60,7 @@ namespace GCP.Front.Forms
             if (ValidateFieldsAlt())
             {
                 var result = MessageBox.Show("Tem certeza que deseja alterar esse registro?",
-             "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+             "Alterar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {

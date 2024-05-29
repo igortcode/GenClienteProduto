@@ -156,7 +156,6 @@ namespace GCP.Front.Forms.Vendas
                         dtGridCliente.Rows[i].Cells[1].Value = clientes[i].Nome;
                         dtGridCliente.Rows[i].Cells[2].Value = clientes[i].Email;
                         dtGridCliente.Rows[i].Cells[3].Value = clientes[i].Cpf;
-                        dtGridCliente.Rows[i].Cells[4].Value = clientes[i].Telefone;
                     }
                 }
             }
