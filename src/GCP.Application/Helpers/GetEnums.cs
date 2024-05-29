@@ -17,5 +17,16 @@ namespace GCP.App.Helpers
                 _ => null
             };
         }
+
+        public static string GetTipoPagamentoName(TipoPagamento tipoPagamento)
+        {
+            return tipoPagamento switch
+            {
+                TipoPagamento.Debito => "Débito",
+                TipoPagamento.Credito => "Crédito",
+                TipoPagamento.Dinheiro => "Dinheiro",
+                TipoPagamento.Cheque => "Cheque"
+            };
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace GCP.Front
             mainPanel = new Panel();
             btnCliente = new Button();
             btnVenda = new Button();
-            button3 = new Button();
+            btnSair = new Button();
             SuspendLayout();
             // 
             // btnProduto
@@ -77,15 +77,16 @@ namespace GCP.Front
             btnVenda.UseVisualStyleBackColor = false;
             btnVenda.Click += btnVenda_Click;
             // 
-            // button3
+            // btnSair
             // 
-            button3.BackColor = SystemColors.Control;
-            button3.Location = new Point(12, 264);
-            button3.Name = "button3";
-            button3.Size = new Size(143, 73);
-            button3.TabIndex = 3;
-            button3.Text = "Relatórios";
-            button3.UseVisualStyleBackColor = false;
+            btnSair.BackColor = SystemColors.Control;
+            btnSair.Location = new Point(12, 552);
+            btnSair.Name = "btnSair";
+            btnSair.Size = new Size(143, 73);
+            btnSair.TabIndex = 3;
+            btnSair.Text = "Sair";
+            btnSair.UseVisualStyleBackColor = false;
+            btnSair.Click += btnSair_Click;
             // 
             // MainForm
             // 
@@ -93,7 +94,7 @@ namespace GCP.Front
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1194, 637);
-            Controls.Add(button3);
+            Controls.Add(btnSair);
             Controls.Add(btnVenda);
             Controls.Add(btnCliente);
             Controls.Add(mainPanel);
@@ -111,6 +112,6 @@ namespace GCP.Front
         private Panel mainPanel;
         private Button btnCliente;
         private Button btnVenda;
-        private Button button3;
+        private Button btnSair;
     }
 }

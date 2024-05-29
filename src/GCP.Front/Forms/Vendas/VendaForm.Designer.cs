@@ -159,9 +159,9 @@
             label6.AutoSize = true;
             label6.Location = new Point(362, 25);
             label6.Name = "label6";
-            label6.Size = new Size(96, 15);
+            label6.Size = new Size(95, 15);
             label6.TabIndex = 24;
-            label6.Text = "Ex: Qtd x Código";
+            label6.Text = "Ex: Qtd * Código";
             // 
             // label2
             // 
@@ -378,6 +378,7 @@
             btnRelatorio.TabIndex = 4;
             btnRelatorio.Text = "Relatório";
             btnRelatorio.UseVisualStyleBackColor = true;
+            btnRelatorio.Click += btnRelatorio_Click;
             // 
             // btnPesquisa
             // 

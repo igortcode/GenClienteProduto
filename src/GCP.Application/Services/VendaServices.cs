@@ -1,7 +1,9 @@
 ﻿using GCP.App.DTO.Venda;
+using GCP.App.Helpers;
 using GCP.App.Interfaces.Repository;
 using GCP.App.Interfaces.Services;
 using GCP.Core.Entities;
+using System.Data;
 using System.Transactions;
 
 namespace GCP.App.Services
@@ -71,6 +73,25 @@ namespace GCP.App.Services
             var result = _vendaRepository.SearchWithClienteRelations(search);
 
             return result;
+        }
+
+        public DataTable GetDataTableWithClienteRelations()
+        {
+            var dt = new DataTable();
+
+            var result = _vendaRepository.GetAllWithClienteRelations();
+
+            dt.Columns.Add("Cliente");
+            dt.Columns.Add("ValorTotal");
+            dt.Columns.Add("TipoPagamento");
+            dt.Columns.Add("DataInclusao");
+
+            foreach(var dto in result)
+            {
+                dt.Rows.Add(dto.NomeCliente, dto.ValorTotal, GetEnums.GetTipoPagamentoName(dto.TipoPagamento), dto.DataInclusao);
+            }
+
+            return dt;
         }
     }
 }
