@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using GCP.App.DTO.Venda;
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
@@ -83,6 +84,30 @@ namespace GCP.Repository.Repository
                 OpenConnection();
 
                 return DbConnection.QueryFirstOrDefault<ProdutosXVenda>(sql, new { Id = id });
+            }
+            finally
+            {
+                DbConnection?.Close();
+            }
+        }
+
+        public IList<ProdutoXVendaDTO> GetProdutosXVendaWithRelations(int idVenda)
+        {
+            var sql = @"SELECT 
+                            P.""Id"" ""ProdutoId"",
+                            P.""Nome"",
+                            P.""Codigo"",
+                            PV.""QuantidadeProduto"" AS Quantidade,
+                            PV.""PrecoProduto"" AS Preco
+                            FROM ""ProdutosXVenda"" AS PV
+                            INNER JOIN ""Produto"" AS P ON PV.""ProdutoId"" = P.""Id""
+                            WHERE PV.""VendaId"" = @IdVenda
+                            ORDER BY PV.""DataInclusao"" DESC";
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.Query<ProdutoXVendaDTO>(sql, new { IdVenda = idVenda }).AsList();
             }
             finally
             {

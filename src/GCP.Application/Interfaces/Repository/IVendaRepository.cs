@@ -6,6 +6,8 @@ namespace GCP.App.Interfaces.Repository
 {
     public interface IVendaRepository : IGenericRepository<Venda>
     {
-        IEnumerable<ObterVendaDTO> GetAllWithRelations();
+        IEnumerable<ObterVendaDTO> GetAllWithClienteRelations();
+        IList<ObterVendaDTO> SearchWithClienteRelations(string search);
+        ObterVendaDTO GetByIdWithClienteRelations(int idVenda);
     }
 }

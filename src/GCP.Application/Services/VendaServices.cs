@@ -21,7 +21,6 @@ namespace GCP.App.Services
 
         public void Add(VendaDTO dto)
         {
-
             ValidaDadosEntrada(dto);
 
             var venda = new Venda(dto.ClienteDTO.Id.Value, dto.Produtos.Sum(a => (a.Preco * a.Quantidade)), dto.TipoPagamento);
@@ -51,19 +50,27 @@ namespace GCP.App.Services
             if (dto.Produtos == null || dto.Produtos.Count == 0) throw new ArgumentNullException("Selecione ao menos um produto para a venda!");
         }
 
-        public IEnumerable<VendaDTO> GetAll()
+        public IEnumerable<ObterVendaDTO> GetAllWithClienteRelations()
         {
-            throw new NotImplementedException();
+           var result = _vendaRepository.GetAllWithClienteRelations();
+
+            return result;
         }
 
-        public VendaDTO GetById(int id)
+        public ObterVendaDTO GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _vendaRepository.GetByIdWithClienteRelations(id);
+
+            result.Produtos = _produtosXVendaRepository.GetProdutosXVendaWithRelations(id);
+
+            return result;
         }
 
-        public void Remover(int id)
+        public IList<ObterVendaDTO> SearchWithClienteRelations(string search)
         {
-            throw new NotImplementedException();
+            var result = _vendaRepository.SearchWithClienteRelations(search);
+
+            return result;
         }
     }
 }

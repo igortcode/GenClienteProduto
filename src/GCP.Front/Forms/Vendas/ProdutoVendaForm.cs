@@ -224,7 +224,7 @@ namespace GCP.Front.Forms.Vendas
                             });
                         }
 
-                        _chamador.DataBind();
+                        _chamador.DataBindGridItensVenda();
                         Dispose();
                     }
                     else

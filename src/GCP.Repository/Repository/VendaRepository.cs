@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using GCP.App.DTO.Venda;
+using GCP.App.Helpers;
 using GCP.App.Interfaces.Repository;
 using GCP.App.Settings;
 using GCP.Core.Entities;
@@ -46,33 +47,24 @@ namespace GCP.Repository.Repository
             }
         }
 
-        public IEnumerable<ObterVendaDTO> GetAllWithRelations()
+        public IEnumerable<ObterVendaDTO> GetAllWithClienteRelations()
         {
             var sql = @"SELECT 
                             V.""Id"", 
                             V.""ValorTotal"", 
                             V.""TipoPagamento"",
+                            V.""DataInclusao"",
                             C.""Id"" ""ClienteId"",
-                            C.""Nome"" ""NomeCliente"",
-                            P.""Id"" ""ProdutoId"",
-                            P.""Nome"",
-                            PV.""Codigo"",
-                            PV.""Quantidade"",
-                            Pv.""Preco"",
+                            C.""Nome"" ""NomeCliente""
                         FROM ""Venda"" AS V 
                         INNER JOIN ""Cliente"" AS C ON C.""Id"" = V.""ClienteId"" 
-                        INNER JOIN ""ProdutoXVenda"" AS PV ON PV.""VendaId"" = V.""Id"" 
-                        INNER JOIN ""Produto"" AS P ON PV.""ProdutoId"" = P.""Id""
                         ORDER BY V.""DataInclusao"" DESC";
 
             try
             {
                 OpenConnection();
 
-                return DbConnection.Query<ObterVendaDTO, ProdutoXVendaDTO, ObterVendaDTO>(sql, (venda, produtos) => 
-                { venda.Produtos.Add(produtos); 
-                  return venda;
-                }, splitOn: "ProdutoId");
+                return DbConnection.Query<ObterVendaDTO>(sql);
             }
             finally
             {
@@ -80,7 +72,7 @@ namespace GCP.Repository.Repository
             }
         }
 
-        public Venda? GetById(int id)
+        public Venda GetById(int id)
         {
             var sql = @"SELECT * FROM ""Venda"" WHERE ""Id"" = @Id";
 
@@ -89,6 +81,31 @@ namespace GCP.Repository.Repository
                 OpenConnection();
 
                 return DbConnection.QueryFirstOrDefault<Venda>(sql, new { Id = id });
+            }
+            finally
+            {
+                DbConnection?.Close();
+            }
+        }
+
+        public ObterVendaDTO GetByIdWithClienteRelations(int idVenda)
+        {
+            var sql = @"SELECT 
+                            V.""Id"", 
+                            V.""ValorTotal"", 
+                            V.""TipoPagamento"",
+                            V.""DataInclusao"",
+                            C.""Id"" ""ClienteId"",
+                            C.""Nome"" ""NomeCliente""
+                        FROM ""Venda"" AS V 
+                        INNER JOIN ""Cliente"" AS C ON C.""Id"" = V.""ClienteId"" 
+                        ORDER BY V.""DataInclusao"" DESC";
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.QueryFirstOrDefault<ObterVendaDTO>(sql, new { VendaId = idVenda });
             }
             finally
             {
@@ -115,6 +132,74 @@ namespace GCP.Repository.Repository
         public IEnumerable<Venda> Search(string search)
         {
             throw new NotImplementedException();
+        }
+
+        public IList<ObterVendaDTO> SearchWithClienteRelations(string search)
+        {
+
+            var tipoPagamento = GetEnums.GetTipoPagamento(search);
+            object parameters;
+            string sql;
+
+            if (tipoPagamento != null)
+            {
+                sql = @"SELECT 
+                            V.""Id"", 
+                            V.""ValorTotal"", 
+                            V.""TipoPagamento"",
+                            V.""DataInclusao"",
+                            C.""Id"" ""ClienteId"",
+                            C.""Nome"" ""NomeCliente""
+                        FROM ""Venda"" AS V 
+                        INNER JOIN ""Cliente"" AS C ON C.""Id"" = V.""ClienteId""
+                        WHERE V.""TipoPagamento"" = @pesquisa
+                        ORDER BY V.""DataInclusao"" DESC";
+
+                parameters = new { pesquisa = tipoPagamento };
+            }
+            else if(double.TryParse(search, out var val))
+            {
+                sql = @"SELECT 
+                            V.""Id"", 
+                            V.""ValorTotal"", 
+                            V.""TipoPagamento"",
+                            V.""DataInclusao"",
+                            C.""Id"" ""ClienteId"",
+                            C.""Nome"" ""NomeCliente""
+                        FROM ""Venda"" AS V 
+                        INNER JOIN ""Cliente"" AS C ON C.""Id"" = V.""ClienteId""
+                        WHERE V.""ValorTotal"" = @pesquisa
+                        ORDER BY V.""DataInclusao"" DESC";
+
+                parameters = new { pesquisa = val };
+            }
+            else
+            {
+                sql = @"SELECT 
+                            V.""Id"", 
+                            V.""ValorTotal"", 
+                            V.""TipoPagamento"",
+                            V.""DataInclusao"",
+                            C.""Id"" ""ClienteId"",
+                            C.""Nome"" ""NomeCliente""
+                        FROM ""Venda"" AS V 
+                        INNER JOIN ""Cliente"" AS C ON C.""Id"" = V.""ClienteId""
+                        WHERE C.""Nome"" LIKE @pesquisa
+                        ORDER BY V.""DataInclusao"" DESC";
+
+                parameters = new { pesquisa = $"%{search}%" };
+            }
+
+            try
+            {
+                OpenConnection();
+
+                return DbConnection.Query<ObterVendaDTO>(sql, parameters).AsList();
+            }
+            finally
+            {
+                DbConnection?.Close();
+            }
         }
 
         public int Update(Venda entity)

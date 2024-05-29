@@ -39,10 +39,10 @@ namespace GCP.Front
             // btnProduto
             // 
             btnProduto.BackColor = SystemColors.Control;
-            btnProduto.Location = new Point(12, 27);
+            btnProduto.Location = new Point(12, 185);
             btnProduto.Name = "btnProduto";
             btnProduto.Size = new Size(143, 73);
-            btnProduto.TabIndex = 0;
+            btnProduto.TabIndex = 2;
             btnProduto.Text = "Produtos";
             btnProduto.UseVisualStyleBackColor = false;
             btnProduto.Click += btnProduto_Click;
@@ -61,7 +61,7 @@ namespace GCP.Front
             btnCliente.Location = new Point(12, 106);
             btnCliente.Name = "btnCliente";
             btnCliente.Size = new Size(143, 73);
-            btnCliente.TabIndex = 2;
+            btnCliente.TabIndex = 1;
             btnCliente.Text = "Clientes";
             btnCliente.UseVisualStyleBackColor = false;
             btnCliente.Click += btnCliente_Click;
@@ -69,10 +69,10 @@ namespace GCP.Front
             // btnVenda
             // 
             btnVenda.BackColor = SystemColors.Control;
-            btnVenda.Location = new Point(12, 185);
+            btnVenda.Location = new Point(12, 27);
             btnVenda.Name = "btnVenda";
             btnVenda.Size = new Size(143, 73);
-            btnVenda.TabIndex = 3;
+            btnVenda.TabIndex = 0;
             btnVenda.Text = "Vendas";
             btnVenda.UseVisualStyleBackColor = false;
             btnVenda.Click += btnVenda_Click;
@@ -83,7 +83,7 @@ namespace GCP.Front
             button3.Location = new Point(12, 264);
             button3.Name = "button3";
             button3.Size = new Size(143, 73);
-            button3.TabIndex = 4;
+            button3.TabIndex = 3;
             button3.Text = "Relatórios";
             button3.UseVisualStyleBackColor = false;
             // 
