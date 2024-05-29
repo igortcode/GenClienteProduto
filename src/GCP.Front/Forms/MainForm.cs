@@ -70,5 +70,16 @@ namespace GCP.Front
                 _formVenda?.BringToFront();
             }
         }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Tem certeza que deseja fechar a aplicação?",
+            "Sair", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.Dispose();
+            }
+        }
     }
 }

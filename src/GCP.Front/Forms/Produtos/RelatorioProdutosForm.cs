@@ -14,9 +14,10 @@ namespace GCP.Front.Forms.Produtos
 
             var dt = _produtoServices.GetDataTable();
 
-            reportProdutos.LocalReport.ReportEmbeddedResource = "GCP.Front.Report.Report1.rdlc";
+            reportProdutos.LocalReport.ReportEmbeddedResource = "GCP.Front.Report.ProdutoReport.rdlc";
 
             reportProdutos.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dt));
+            reportProdutos.LocalReport.DisplayName = $"{DateTime.Now.Ticks}_RProdutos";
 
             reportProdutos.RefreshReport();
         }

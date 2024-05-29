@@ -17,6 +17,7 @@ namespace GCP.Front.Forms
         private IList<ProdutoXVendaDTO> _produtosVendaDto;
         private ProdutoVendaForm _frmProdutoVenda;
         private TipoPagamentoForm _tipoPagamento;
+        private RelatorioVendasForm _relatorioVenadasForm;
 
         public VendaForm(IClienteServices clienteServices, IProdutoServices produtoServices, IVendaServices vendaServices)
         {
@@ -224,7 +225,7 @@ namespace GCP.Front.Forms
                         throw new DomainExceptionValidate("Insira um código!");
 
 
-                    var dados = entradaDados.Split("x");
+                    var dados = entradaDados.Split("*");
 
                     var qtd = 0m;
                     var codigo = string.Empty;
@@ -291,7 +292,7 @@ namespace GCP.Front.Forms
                 if (string.IsNullOrEmpty(entradaDados))
                     throw new DomainExceptionValidate("Insira um código!");
 
-                var dados = entradaDados.Split("x");
+                var dados = entradaDados.Split("*");
 
                 var qtd = 0m;
                 var codigo = string.Empty;
@@ -552,6 +553,19 @@ namespace GCP.Front.Forms
             gbAlterar.Enabled = false;
 
             DataBindGridVisualizar(new List<ProdutoXVendaDTO>());
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            if (_relatorioVenadasForm is null || _relatorioVenadasForm.IsDisposed)
+            {
+                _relatorioVenadasForm = new RelatorioVendasForm(_vendaServices);
+                _relatorioVenadasForm.Show();
+            }
+            else
+            {
+                _relatorioVenadasForm.BringToFront();
+            }
         }
     }
 }

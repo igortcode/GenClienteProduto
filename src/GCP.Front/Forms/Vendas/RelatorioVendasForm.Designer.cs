@@ -1,6 +1,6 @@
-﻿namespace GCP.Front.Forms.Produtos
+﻿namespace GCP.Front.Forms.Vendas
 {
-    partial class RelatorioProdutosForm
+    partial class RelatorioVendasForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,33 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            reportProdutos = new Microsoft.Reporting.WinForms.ReportViewer();
+            relatorioVendas = new Microsoft.Reporting.WinForms.ReportViewer();
             SuspendLayout();
             // 
-            // reportProdutos
+            // relatorioVendas
             // 
-            reportProdutos.Dock = DockStyle.Fill;
-            reportProdutos.Location = new Point(0, 0);
-            reportProdutos.Name = "ReportViewer";
-            reportProdutos.ServerReport.BearerToken = null;
-            reportProdutos.Size = new Size(800, 450);
-            reportProdutos.TabIndex = 0;
+            relatorioVendas.Dock = DockStyle.Fill;
+            relatorioVendas.Location = new Point(0, 0);
+            relatorioVendas.Name = "ReportViewer";
+            relatorioVendas.ServerReport.BearerToken = null;
+            relatorioVendas.Size = new Size(800, 450);
+            relatorioVendas.TabIndex = 0;
             // 
-            // RelatorioProdutosForm
+            // RelatorioVendasForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(reportProdutos);
-            Name = "RelatorioProdutosForm";
-            Text = "Relatório de produtos";
+            Controls.Add(relatorioVendas);
+            Name = "RelatorioVendasForm";
+            Text = "Relatório de vendas";
             WindowState = FormWindowState.Maximized;
-            Load += RelatorioProdutosForm_Load;
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Microsoft.Reporting.WinForms.ReportViewer reportProdutos;
+        private Microsoft.Reporting.WinForms.ReportViewer relatorioVendas;
     }
 }
