@@ -1,6 +1,7 @@
 ﻿using GCP.App.DTO.Produtos;
 using GCP.App.Interfaces.Services;
 using GCP.Core.Validations.CustomExceptions;
+using GCP.Front.Forms.Produtos;
 
 
 namespace GCP.Front.Forms
@@ -9,6 +10,7 @@ namespace GCP.Front.Forms
     {
         private IProdutoServices _produtoServices;
         private int _id;
+        private RelatorioProdutosForm _frmRelatorioProduto;
 
         public ProdutoForm(IProdutoServices produtoServices)
         {
@@ -29,7 +31,7 @@ namespace GCP.Front.Forms
                     _produtoServices.Add(produtoDto);
 
                     MessageBox.Show("Cadastro efetuado com sucesso!", "Mensagem", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     ClearTextBox();
                     GoToList();
                 }
@@ -409,6 +411,19 @@ namespace GCP.Front.Forms
             {
 
                 MessageBox.Show("Não foi possível buscar os produtos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {          
+            if(_frmRelatorioProduto == null || _frmRelatorioProduto.IsDisposed)
+            {
+                _frmRelatorioProduto = new RelatorioProdutosForm(_produtoServices);
+                _frmRelatorioProduto.Show();
+            }
+            else
+            {
+                _frmRelatorioProduto.BringToFront();
             }
         }
     }

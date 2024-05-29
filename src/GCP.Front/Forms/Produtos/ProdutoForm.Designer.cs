@@ -64,6 +64,7 @@
             txtNomeAlt = new TextBox();
             btnSalvar = new Button();
             btnVoltarEdit = new Button();
+            btnRelatorio = new Button();
             tabControlProduto.SuspendLayout();
             tabList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtGridProduto).BeginInit();
@@ -90,6 +91,7 @@
             // 
             // tabList
             // 
+            tabList.Controls.Add(btnRelatorio);
             tabList.Controls.Add(btnAtualizarList);
             tabList.Controls.Add(btnPesquisa);
             tabList.Controls.Add(txtPesquisa);
@@ -449,6 +451,16 @@
             btnVoltarEdit.UseVisualStyleBackColor = true;
             btnVoltarEdit.Click += btnVoltarEdit_Click;
             // 
+            // btnRelatorio
+            // 
+            btnRelatorio.Location = new Point(6, 488);
+            btnRelatorio.Name = "btnRelatorio";
+            btnRelatorio.Size = new Size(90, 29);
+            btnRelatorio.TabIndex = 5;
+            btnRelatorio.Text = "Relatório";
+            btnRelatorio.UseVisualStyleBackColor = true;
+            btnRelatorio.Click += btnRelatorio_Click;
+            // 
             // ProdutoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -512,5 +524,6 @@
         private NumericUpDown txtPrecoAltNu;
         private Button btnRemover;
         private Button btnAtualizarList;
+        private Button btnRelatorio;
     }
 }

@@ -4,6 +4,7 @@ using GCP.App.Interfaces.Repository;
 using GCP.App.Interfaces.Services;
 using GCP.Core.Entities;
 using GCP.Core.Validations.CustomExceptions;
+using System.Data;
 
 namespace GCP.App.Services
 {
@@ -48,6 +49,29 @@ namespace GCP.App.Services
             var entity = _produtoRepository.GetById(id);
 
             return _mapper.Map<ProdutoDTO>(entity);
+        }
+
+        public DataTable GetDataTable()
+        {
+            var entities = _produtoRepository.GetAll();
+
+            var dataTable = new DataTable();
+
+            dataTable.Columns.Add("Nome");
+            dataTable.Columns.Add("Codigo");
+            dataTable.Columns.Add("Preco");
+            dataTable.Columns.Add("Quantidade");
+
+            foreach (var entity in entities)
+            {
+                dataTable.Rows.Add(entity.Nome, entity.Codigo, entity.Preco, entity.Quantidade);
+            }
+
+           
+
+
+            return dataTable;
+
         }
 
         public void Remove(int id)
