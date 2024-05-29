@@ -1,6 +1,7 @@
 ﻿using GCP.App.DTO.Clientes;
 using GCP.App.DTO.Venda;
 using GCP.App.Interfaces.Services;
+using GCP.Core.Enums;
 using GCP.Core.Validations.CustomExceptions;
 using GCP.Front.Forms.Vendas;
 
@@ -25,7 +26,8 @@ namespace GCP.Front.Forms
             InitializeComponent();
             _clienteDto = new ClienteDTO();
             _produtosVendaDto = new List<ProdutoXVendaDTO>();
-            DataBind();
+            DataBindGridItensVenda();
+            DataBindGridVenda();
         }
 
         private void btnPesquisarCliente_Click(object sender, EventArgs e)
@@ -54,7 +56,7 @@ namespace GCP.Front.Forms
             }
         }
 
-        public void DataBind()
+        public void DataBindGridItensVenda()
         {
             try
             {
@@ -96,7 +98,7 @@ namespace GCP.Front.Forms
                         dataGridItensVenda.Rows[i].Cells[4].Value = _produtosVendaDto[i].Quantidade;
                     }
 
-                    txtTotalItens.Text = _produtosVendaDto.Count.ToString();
+                    txtTotalItens.Text = _produtosVendaDto.Sum(a => a.Quantidade).ToString();
                     txtTotal.Text = $"R$ {_produtosVendaDto.Sum(a => (a.Preco * a.Quantidade))}";
                 }
             }
@@ -107,6 +109,65 @@ namespace GCP.Front.Forms
             }
         }
 
+        public void DataBindGridVenda(IList<ObterVendaDTO> obterVendaDTOs = null)
+        {
+            try
+            {
+                if (obterVendaDTOs is null)
+                    obterVendaDTOs = _vendaServices.GetAllWithClienteRelations().ToList();
+
+                dtGridVenda.Rows.Clear();
+                dtGridVenda.Columns.Clear();
+                dtGridVenda.Refresh();
+
+                dtGridVenda.Columns.Add("Id", "Id");
+                dtGridVenda.Columns.Add("Cliente", "Cliente");
+                dtGridVenda.Columns.Add("ValorTotal", "Valor total");
+                dtGridVenda.Columns.Add("TpPagamento", "Forma Pagamento");
+                dtGridVenda.Columns.Add("DataInclusao", "Data");
+
+                dtGridVenda.Columns[0].Visible = false;
+                dtGridVenda.Columns[1].Width = 300;
+                dtGridVenda.Columns[2].Width = 250;
+                dtGridVenda.Columns[3].Width = 200;
+                dtGridVenda.Columns[4].Width = 200;
+
+                if (obterVendaDTOs.Count() < 1)
+                {
+                    dtGridVenda.Rows.Add(1);
+                }
+                else
+                {
+                    dtGridVenda.Rows.Add(obterVendaDTOs.Count);
+
+                    for (int i = 0; i < obterVendaDTOs.Count; i++)
+                    {
+                        dtGridVenda.Rows[i].Cells[0].Value = obterVendaDTOs[i].Id;
+                        dtGridVenda.Rows[i].Cells[1].Value = obterVendaDTOs[i].NomeCliente;
+                        dtGridVenda.Rows[i].Cells[2].Value = obterVendaDTOs[i].ValorTotal;
+                        dtGridVenda.Rows[i].Cells[3].Value = GetTipoPagamento(obterVendaDTOs[i].TipoPagamento);
+                        dtGridVenda.Rows[i].Cells[4].Value = obterVendaDTOs[i].DataInclusao.ToString("dd/MM/yyyy");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível buscar as vendas.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private object GetTipoPagamento(TipoPagamento tipoPagamento)
+        {
+            return tipoPagamento switch
+            {
+                TipoPagamento.Dinheiro => "Dinheiro",
+                TipoPagamento.Debito => "Débito",
+                TipoPagamento.Credito => "Crédito",
+                TipoPagamento.Cheque => "Cheque",
+                _ => string.Empty
+            };
+        }
+
         private void btnRemoverCliente_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Deseja remover o cliente? Também será removido os itens selecionados na venda!",
@@ -114,7 +175,7 @@ namespace GCP.Front.Forms
 
             if (result == DialogResult.Yes)
             {
-                LimparDados();            
+                LimparDados();
             }
 
         }
@@ -137,10 +198,8 @@ namespace GCP.Front.Forms
 
                         MessageBox.Show("Produto removido com sucesso!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        DataBind();
+                        DataBindGridItensVenda();
                     }
-
-                    Dispose();
                 }
                 else
                 {
@@ -211,7 +270,7 @@ namespace GCP.Front.Forms
 
                     txtCodigo.Text = string.Empty;
 
-                    DataBind();
+                    DataBindGridItensVenda();
                 }
                 catch (DomainExceptionValidate dev)
                 {
@@ -276,7 +335,7 @@ namespace GCP.Front.Forms
                     });
                 }
 
-                DataBind();
+                DataBindGridItensVenda();
             }
             catch (DomainExceptionValidate dev)
             {
@@ -307,7 +366,7 @@ namespace GCP.Front.Forms
                     {
                         _tipoPagamento = new TipoPagamentoForm(_vendaServices, this, vendaDto);
                         _tipoPagamento.Show();
-                    
+
                     }
                     else
                     {
@@ -344,7 +403,7 @@ namespace GCP.Front.Forms
             txtTotal.Text = string.Empty;
             txtTotalItens.Text = string.Empty;
             gbVenda.Enabled = false;
-            DataBind();
+            DataBindGridItensVenda();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -358,6 +417,141 @@ namespace GCP.Front.Forms
 
                 MessageBox.Show("Venda cancelada com sucesso!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPesquisa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtPesquisa.Text))
+                {
+                    DataBindGridVenda();
+                    return;
+                }
+
+                var result = _vendaServices.SearchWithClienteRelations(txtPesquisa.Text);
+
+                DataBindGridVenda(result);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível buscar as vendas.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void dtGridVenda_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            try
+            {
+                if (dtGridVenda.CurrentRow.Cells[0].Value != null)
+                {
+                    (tabEdit as Control).Enabled = true;
+
+                    var id = (int)dtGridVenda.CurrentRow.Cells[0].Value;
+
+                    PreencherAlterar(_vendaServices.GetById(id));
+
+                    tabControlVenda.SelectedTab = tabEdit;
+                    gbAlterar.Enabled = true;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível buscar a venda.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PreencherAlterar(ObterVendaDTO obterVendaDTO)
+        {
+            var clienteDto = _clienteServices.GetById(obterVendaDTO.ClienteId);
+
+            lbEmailVisualizar.Text = clienteDto.Email;
+            lbEnderecoVisualizar.Text = clienteDto.Endereco.EnderecoCompleto();
+            lbNomeClienteVisualizar.Text = clienteDto.Nome;
+
+            txtValorTotalVisualizar.Text = $"R$ {obterVendaDTO.ValorTotal.ToString()}";
+            txtTotalItensVisualizar.Text = obterVendaDTO.Produtos.Sum(a => a.Quantidade).ToString();
+            txtDataVisualizar.Text = obterVendaDTO.DataInclusao.ToString("dd/MM/yyyy");
+
+            DataBindGridVisualizar(obterVendaDTO.Produtos);
+
+            gbAlterar.Enabled = false;
+        }
+
+        private void DataBindGridVisualizar(IList<ProdutoXVendaDTO> produtos)
+        {
+            try
+            {
+
+                dataGridVisualizar.Rows.Clear();
+                dataGridVisualizar.Columns.Clear();
+                dataGridVisualizar.Refresh();
+
+                dataGridVisualizar.Columns.Add("Id", "Id");
+                dataGridVisualizar.Columns.Add("Nome", "Nome");
+                dataGridVisualizar.Columns.Add("Codigo", "Código");
+                dataGridVisualizar.Columns.Add("Preco", "Preço");
+                dataGridVisualizar.Columns.Add("Qtd", "Quantidade");
+
+                dataGridVisualizar.Columns[0].Visible = false;
+                dataGridVisualizar.Columns[1].Width = 300;
+                dataGridVisualizar.Columns[2].Width = 200;
+                dataGridVisualizar.Columns[3].Width = 100;
+                dataGridVisualizar.Columns[4].Width = 100;
+
+
+                if (produtos.Count() < 1)
+                {
+                    dataGridVisualizar.Rows.Add(1);
+                }
+                else
+                {
+                    dataGridVisualizar.Rows.Add(produtos.Count);
+
+                    for (int i = 0; i < produtos.Count; i++)
+                    {
+                        dataGridVisualizar.Rows[i].Cells[0].Value = produtos[i].ProdutoId;
+                        dataGridVisualizar.Rows[i].Cells[1].Value = produtos[i].Nome;
+                        dataGridVisualizar.Rows[i].Cells[2].Value = produtos[i].Codigo;
+                        dataGridVisualizar.Rows[i].Cells[3].Value = produtos[i].Preco;
+                        dataGridVisualizar.Rows[i].Cells[4].Value = produtos[i].Quantidade;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Não foi possível buscar os produtos da venda.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            LimparDadosVisualizar();
+
+            tabControlVenda.SelectedTab = tabList;
+        }
+
+        private void LimparDadosVisualizar()
+        {
+            lbEmailVisualizar.Text = string.Empty;
+            lbEnderecoVisualizar.Text = string.Empty;
+            lbNomeClienteVisualizar.Text = string.Empty;
+
+            txtValorTotalVisualizar.Text = string.Empty;
+            txtTotalItensVisualizar.Text = string.Empty;
+            txtDataVisualizar.Text = string.Empty;
+
+            gbAlterar.Enabled = false;
+
+            DataBindGridVisualizar(new List<ProdutoXVendaDTO>());
         }
     }
 }

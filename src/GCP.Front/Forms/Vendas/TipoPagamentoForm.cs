@@ -1,6 +1,6 @@
 ﻿using GCP.App.DTO.Venda;
+using GCP.App.Helpers;
 using GCP.App.Interfaces.Services;
-using GCP.Core.Enums;
 
 namespace GCP.Front.Forms.Vendas
 {
@@ -18,8 +18,8 @@ namespace GCP.Front.Forms.Vendas
 
             InitializeComponent();
             cbTipoPagamento.Items.Add("Dinheiro");
-            cbTipoPagamento.Items.Add("Debito");
-            cbTipoPagamento.Items.Add("Credito");
+            cbTipoPagamento.Items.Add("Débito");
+            cbTipoPagamento.Items.Add("Crédito");
             cbTipoPagamento.Items.Add("Cheque");
             cbTipoPagamento.SelectedIndex = 0;
         }
@@ -30,12 +30,13 @@ namespace GCP.Front.Forms.Vendas
             {
                 var result = cbTipoPagamento.SelectedItem.ToString();
 
-                _vendaDTO.TipoPagamento = (TipoPagamento)Enum.Parse(typeof(TipoPagamento), result);
+                _vendaDTO.TipoPagamento = GetEnums.GetTipoPagamento(result.ToString()) ?? throw new ArgumentException("Tipo de pagamento inválido");
 
                 _vendaServices.Add(_vendaDTO);
                 MessageBox.Show("Venda cadastrada com sucesso!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 _vendaForm.LimparDados();
+                _vendaForm.DataBindGridVenda();
                 Dispose();
             }
             catch (Exception)

@@ -33,7 +33,6 @@
             btnRemoverCliente = new Button();
             gbVenda = new GroupBox();
             label6 = new Label();
-            btnAdicionar = new Button();
             label2 = new Label();
             txtData = new TextBox();
             txtTotalItens = new TextBox();
@@ -56,17 +55,31 @@
             label1 = new Label();
             btnPesquisarCliente = new Button();
             tabList = new TabPage();
-            btnAtualizarList = new Button();
+            btnRelatorio = new Button();
             btnPesquisa = new Button();
             txtPesquisa = new TextBox();
-            btnIrCadastrar = new Button();
             dtGridVenda = new DataGridView();
             tabEdit = new TabPage();
-            cBAlterar = new CheckBox();
             gbAlterar = new GroupBox();
-            btnRemover = new Button();
-            btnSalvar = new Button();
-            btnVoltarEdit = new Button();
+            btnVoltar = new Button();
+            groupBox3 = new GroupBox();
+            label16 = new Label();
+            txtDataVisualizar = new TextBox();
+            txtTotalItensVisualizar = new TextBox();
+            txtValorTotalVisualizar = new TextBox();
+            label17 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            dataGridVisualizar = new DataGridView();
+            button4 = new Button();
+            label20 = new Label();
+            groupBox2 = new GroupBox();
+            lbEmailVisualizar = new Label();
+            lbEnderecoVisualizar = new Label();
+            lbNomeClienteVisualizar = new Label();
+            label10 = new Label();
+            label13 = new Label();
+            label14 = new Label();
             tabControlVenda.SuspendLayout();
             tabAdd.SuspendLayout();
             gbVenda.SuspendLayout();
@@ -76,6 +89,9 @@
             ((System.ComponentModel.ISupportInitialize)dtGridVenda).BeginInit();
             tabEdit.SuspendLayout();
             gbAlterar.SuspendLayout();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridVisualizar).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControlVenda
@@ -117,7 +133,6 @@
             // gbVenda
             // 
             gbVenda.Controls.Add(label6);
-            gbVenda.Controls.Add(btnAdicionar);
             gbVenda.Controls.Add(label2);
             gbVenda.Controls.Add(txtData);
             gbVenda.Controls.Add(txtTotalItens);
@@ -147,17 +162,6 @@
             label6.Size = new Size(96, 15);
             label6.TabIndex = 24;
             label6.Text = "Ex: Qtd x Código";
-            // 
-            // btnAdicionar
-            // 
-            btnAdicionar.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAdicionar.Location = new Point(676, 43);
-            btnAdicionar.Name = "btnAdicionar";
-            btnAdicionar.Size = new Size(73, 25);
-            btnAdicionar.TabIndex = 23;
-            btnAdicionar.Text = "Adicionar";
-            btnAdicionar.UseVisualStyleBackColor = true;
-            btnAdicionar.Click += btnAdicionar_Click;
             // 
             // label2
             // 
@@ -263,7 +267,7 @@
             // 
             txtCodigo.Location = new Point(362, 43);
             txtCodigo.Name = "txtCodigo";
-            txtCodigo.Size = new Size(308, 23);
+            txtCodigo.Size = new Size(387, 23);
             txtCodigo.TabIndex = 2;
             txtCodigo.KeyUp += txtCodigo_KeyUp;
             // 
@@ -354,10 +358,9 @@
             // 
             // tabList
             // 
-            tabList.Controls.Add(btnAtualizarList);
+            tabList.Controls.Add(btnRelatorio);
             tabList.Controls.Add(btnPesquisa);
             tabList.Controls.Add(txtPesquisa);
-            tabList.Controls.Add(btnIrCadastrar);
             tabList.Controls.Add(dtGridVenda);
             tabList.Location = new Point(4, 24);
             tabList.Name = "tabList";
@@ -367,14 +370,14 @@
             tabList.Text = "Vendas";
             tabList.UseVisualStyleBackColor = true;
             // 
-            // btnAtualizarList
+            // btnRelatorio
             // 
-            btnAtualizarList.Location = new Point(782, 488);
-            btnAtualizarList.Name = "btnAtualizarList";
-            btnAtualizarList.Size = new Size(90, 29);
-            btnAtualizarList.TabIndex = 4;
-            btnAtualizarList.Text = "Atualizar";
-            btnAtualizarList.UseVisualStyleBackColor = true;
+            btnRelatorio.Location = new Point(843, 491);
+            btnRelatorio.Name = "btnRelatorio";
+            btnRelatorio.Size = new Size(122, 31);
+            btnRelatorio.TabIndex = 4;
+            btnRelatorio.Text = "Relatório";
+            btnRelatorio.UseVisualStyleBackColor = true;
             // 
             // btnPesquisa
             // 
@@ -384,6 +387,7 @@
             btnPesquisa.TabIndex = 3;
             btnPesquisa.Text = "Pesquisar";
             btnPesquisa.UseVisualStyleBackColor = true;
+            btnPesquisa.Click += btnPesquisa_Click;
             // 
             // txtPesquisa
             // 
@@ -392,85 +396,226 @@
             txtPesquisa.Size = new Size(256, 23);
             txtPesquisa.TabIndex = 2;
             // 
-            // btnIrCadastrar
-            // 
-            btnIrCadastrar.Location = new Point(878, 488);
-            btnIrCadastrar.Name = "btnIrCadastrar";
-            btnIrCadastrar.Size = new Size(87, 29);
-            btnIrCadastrar.TabIndex = 1;
-            btnIrCadastrar.Text = "Vender";
-            btnIrCadastrar.UseVisualStyleBackColor = true;
-            // 
             // dtGridVenda
             // 
             dtGridVenda.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtGridVenda.Location = new Point(6, 46);
+            dtGridVenda.Location = new Point(6, 61);
             dtGridVenda.Name = "dtGridVenda";
             dtGridVenda.ReadOnly = true;
-            dtGridVenda.Size = new Size(959, 427);
+            dtGridVenda.Size = new Size(959, 413);
             dtGridVenda.TabIndex = 0;
+            dtGridVenda.RowHeaderMouseDoubleClick += dtGridVenda_RowHeaderMouseDoubleClick;
             // 
             // tabEdit
             // 
-            tabEdit.Controls.Add(cBAlterar);
             tabEdit.Controls.Add(gbAlterar);
-            tabEdit.Controls.Add(btnVoltarEdit);
             tabEdit.Location = new Point(4, 24);
             tabEdit.Name = "tabEdit";
             tabEdit.Padding = new Padding(3);
             tabEdit.Size = new Size(971, 539);
             tabEdit.TabIndex = 2;
-            tabEdit.Text = "Visualizar/Alterar";
+            tabEdit.Text = "Visualizar";
             tabEdit.UseVisualStyleBackColor = true;
-            // 
-            // cBAlterar
-            // 
-            cBAlterar.AutoSize = true;
-            cBAlterar.Location = new Point(907, 16);
-            cBAlterar.Name = "cBAlterar";
-            cBAlterar.Size = new Size(61, 19);
-            cBAlterar.TabIndex = 1;
-            cBAlterar.Text = "Alterar";
-            cBAlterar.UseVisualStyleBackColor = true;
             // 
             // gbAlterar
             // 
-            gbAlterar.Controls.Add(btnRemover);
-            gbAlterar.Controls.Add(btnSalvar);
+            gbAlterar.Controls.Add(btnVoltar);
+            gbAlterar.Controls.Add(groupBox3);
+            gbAlterar.Controls.Add(groupBox2);
             gbAlterar.Enabled = false;
-            gbAlterar.Location = new Point(6, 36);
+            gbAlterar.Location = new Point(6, 6);
             gbAlterar.Name = "gbAlterar";
-            gbAlterar.Size = new Size(959, 481);
+            gbAlterar.Size = new Size(959, 511);
             gbAlterar.TabIndex = 0;
             gbAlterar.TabStop = false;
             gbAlterar.Text = "Dados Venda";
             // 
-            // btnRemover
+            // btnVoltar
             // 
-            btnRemover.Location = new Point(754, 446);
-            btnRemover.Name = "btnRemover";
-            btnRemover.Size = new Size(100, 30);
-            btnRemover.TabIndex = 24;
-            btnRemover.Text = "Excluir";
-            btnRemover.UseVisualStyleBackColor = true;
+            btnVoltar.Location = new Point(854, 13);
+            btnVoltar.Name = "btnVoltar";
+            btnVoltar.Size = new Size(91, 23);
+            btnVoltar.TabIndex = 18;
+            btnVoltar.Text = "Voltar";
+            btnVoltar.UseVisualStyleBackColor = true;
+            btnVoltar.Click += btnVoltar_Click;
             // 
-            // btnSalvar
+            // groupBox3
             // 
-            btnSalvar.Location = new Point(860, 446);
-            btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(93, 29);
-            btnSalvar.TabIndex = 0;
-            btnSalvar.Text = "Salvar";
-            btnSalvar.UseVisualStyleBackColor = true;
+            groupBox3.Controls.Add(label16);
+            groupBox3.Controls.Add(txtDataVisualizar);
+            groupBox3.Controls.Add(txtTotalItensVisualizar);
+            groupBox3.Controls.Add(txtValorTotalVisualizar);
+            groupBox3.Controls.Add(label17);
+            groupBox3.Controls.Add(label18);
+            groupBox3.Controls.Add(label19);
+            groupBox3.Controls.Add(dataGridVisualizar);
+            groupBox3.Controls.Add(button4);
+            groupBox3.Controls.Add(label20);
+            groupBox3.Enabled = false;
+            groupBox3.Location = new Point(6, 137);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(939, 368);
+            groupBox3.TabIndex = 17;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "PDV";
             // 
-            // btnVoltarEdit
+            // label16
             // 
-            btnVoltarEdit.Location = new Point(760, 6);
-            btnVoltarEdit.Name = "btnVoltarEdit";
-            btnVoltarEdit.Size = new Size(91, 30);
-            btnVoltarEdit.TabIndex = 1;
-            btnVoltarEdit.Text = "Voltar";
-            btnVoltarEdit.UseVisualStyleBackColor = true;
+            label16.AutoSize = true;
+            label16.Location = new Point(6, 393);
+            label16.Name = "label16";
+            label16.Size = new Size(260, 15);
+            label16.TabIndex = 22;
+            label16.Text = "*Clique na linha duas vezes para remover o item";
+            // 
+            // txtDataVisualizar
+            // 
+            txtDataVisualizar.Enabled = false;
+            txtDataVisualizar.Location = new Point(771, 174);
+            txtDataVisualizar.Name = "txtDataVisualizar";
+            txtDataVisualizar.ReadOnly = true;
+            txtDataVisualizar.Size = new Size(104, 23);
+            txtDataVisualizar.TabIndex = 21;
+            // 
+            // txtTotalItensVisualizar
+            // 
+            txtTotalItensVisualizar.Enabled = false;
+            txtTotalItensVisualizar.Location = new Point(771, 114);
+            txtTotalItensVisualizar.Name = "txtTotalItensVisualizar";
+            txtTotalItensVisualizar.ReadOnly = true;
+            txtTotalItensVisualizar.Size = new Size(145, 23);
+            txtTotalItensVisualizar.TabIndex = 20;
+            // 
+            // txtValorTotalVisualizar
+            // 
+            txtValorTotalVisualizar.Enabled = false;
+            txtValorTotalVisualizar.Location = new Point(771, 53);
+            txtValorTotalVisualizar.Name = "txtValorTotalVisualizar";
+            txtValorTotalVisualizar.ReadOnly = true;
+            txtValorTotalVisualizar.Size = new Size(145, 23);
+            txtValorTotalVisualizar.TabIndex = 19;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(771, 96);
+            label17.Name = "label17";
+            label17.Size = new Size(63, 15);
+            label17.TabIndex = 18;
+            label17.Text = "Total Itens:";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(771, 156);
+            label18.Name = "label18";
+            label18.Size = new Size(34, 15);
+            label18.TabIndex = 17;
+            label18.Text = "Data:";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(771, 35);
+            label19.Name = "label19";
+            label19.Size = new Size(67, 15);
+            label19.TabIndex = 16;
+            label19.Text = "Valor Total: ";
+            // 
+            // dataGridVisualizar
+            // 
+            dataGridVisualizar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridVisualizar.Location = new Point(6, 37);
+            dataGridVisualizar.Name = "dataGridVisualizar";
+            dataGridVisualizar.ReadOnly = true;
+            dataGridVisualizar.Size = new Size(743, 307);
+            dataGridVisualizar.TabIndex = 13;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(755, 385);
+            button4.Name = "button4";
+            button4.Size = new Size(198, 29);
+            button4.TabIndex = 5;
+            button4.Text = "Cancelar";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(6, 19);
+            label20.Name = "label20";
+            label20.Size = new Size(75, 15);
+            label20.TabIndex = 11;
+            label20.Text = "Lista de Itens";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(lbEmailVisualizar);
+            groupBox2.Controls.Add(lbEnderecoVisualizar);
+            groupBox2.Controls.Add(lbNomeClienteVisualizar);
+            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(label13);
+            groupBox2.Controls.Add(label14);
+            groupBox2.Location = new Point(6, 31);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(939, 100);
+            groupBox2.TabIndex = 15;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Dados Cliente";
+            groupBox2.Enter += groupBox2_Enter;
+            // 
+            // lbEmailVisualizar
+            // 
+            lbEmailVisualizar.AutoSize = true;
+            lbEmailVisualizar.Location = new Point(61, 44);
+            lbEmailVisualizar.Name = "lbEmailVisualizar";
+            lbEmailVisualizar.Size = new Size(0, 15);
+            lbEmailVisualizar.TabIndex = 18;
+            // 
+            // lbEnderecoVisualizar
+            // 
+            lbEnderecoVisualizar.AutoSize = true;
+            lbEnderecoVisualizar.Location = new Point(87, 71);
+            lbEnderecoVisualizar.Name = "lbEnderecoVisualizar";
+            lbEnderecoVisualizar.Size = new Size(0, 15);
+            lbEnderecoVisualizar.TabIndex = 17;
+            // 
+            // lbNomeClienteVisualizar
+            // 
+            lbNomeClienteVisualizar.AutoSize = true;
+            lbNomeClienteVisualizar.Location = new Point(71, 19);
+            lbNomeClienteVisualizar.Name = "lbNomeClienteVisualizar";
+            lbNomeClienteVisualizar.Size = new Size(0, 15);
+            lbNomeClienteVisualizar.TabIndex = 16;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(22, 44);
+            label10.Name = "label10";
+            label10.Size = new Size(39, 15);
+            label10.TabIndex = 15;
+            label10.Text = "Email:";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(22, 71);
+            label13.Name = "label13";
+            label13.Size = new Size(59, 15);
+            label13.TabIndex = 14;
+            label13.Text = "Endereço:";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(22, 20);
+            label14.Name = "label14";
+            label14.Size = new Size(43, 15);
+            label14.TabIndex = 13;
+            label14.Text = "Nome:";
             // 
             // VendaForm
             // 
@@ -491,8 +636,12 @@
             tabList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dtGridVenda).EndInit();
             tabEdit.ResumeLayout(false);
-            tabEdit.PerformLayout();
             gbAlterar.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridVisualizar).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -500,10 +649,8 @@
 
         private TabControl tabControlVenda;
         private TabPage tabList;
-        private Button btnAtualizarList;
         private Button btnPesquisa;
         private TextBox txtPesquisa;
-        private Button btnIrCadastrar;
         private DataGridView dtGridVenda;
         private TabPage tabAdd;
         private Label label5;
@@ -511,11 +658,7 @@
         private Button btnCancelar;
         private Button btnFinalizar;
         private TabPage tabEdit;
-        private CheckBox cBAlterar;
         private GroupBox gbAlterar;
-        private Button btnRemover;
-        private Button btnSalvar;
-        private Button btnVoltarEdit;
         private DataGridView dataGridItensVenda;
         private Button btnPesquisarCliente;
         private GroupBox groupBox1;
@@ -536,6 +679,25 @@
         private Button btnRemoverCliente;
         private Label label2;
         private Label label6;
-        private Button btnAdicionar;
+        private GroupBox groupBox3;
+        private Label label16;
+        private TextBox txtTotalItensVisualizar;
+        private TextBox txtValorTotalVisualizar;
+        private Label label17;
+        private Label label19;
+        private DataGridView dataGridVisualizar;
+        private Button button4;
+        private Label label20;
+        private GroupBox groupBox2;
+        private Label lbEmailVisualizar;
+        private Label lbEnderecoVisualizar;
+        private Label lbNomeClienteVisualizar;
+        private Label label10;
+        private Label label13;
+        private Label label14;
+        private Button btnRelatorio;
+        private TextBox txtDataVisualizar;
+        private Label label18;
+        private Button btnVoltar;
     }
 }

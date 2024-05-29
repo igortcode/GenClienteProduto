@@ -1,4 +1,5 @@
-﻿using GCP.Core.Entities;
+﻿using GCP.App.DTO.Venda;
+using GCP.Core.Entities;
 using System.Data;
 
 namespace GCP.App.Interfaces.Repository
@@ -10,6 +11,7 @@ namespace GCP.App.Interfaces.Repository
         int Remove(int idProduto, int idVenda);
         ProdutosXVenda GetById(int id);
         IEnumerable<ProdutosXVenda> GetAll(int idVenda);
+        IList<ProdutoXVendaDTO> GetProdutosXVendaWithRelations(int idVenda);
         void DesabilitarRestricoes();
     }
 }
