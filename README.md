@@ -2,6 +2,7 @@
 Teste Prático para Desenvolvedor Pleno C#, Windows Forms e PostgreSQL
 
 Informações:
+
      - Requisitos mínimos necessários:
         * Visual Studio 2022
         * .Net 8
