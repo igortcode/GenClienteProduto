@@ -1,6 +1,7 @@
 ﻿using GCP.App.DTO.Clientes;
 using GCP.App.Interfaces.Services;
 using GCP.Core.Validations.CustomExceptions;
+using GCP.Front.Forms.Clientes;
 
 namespace GCP.Front.Forms
 {
@@ -11,6 +12,7 @@ namespace GCP.Front.Forms
         private EnderecoDTO _endereco;
         private EnderecoForm _enderecoFromAlt;
         private EnderecoForm _enderecoFromCad;
+        private RelatorioClientesForm _relatorioClienteForm;
 
         public ClientForm(IClienteServices clienteServices)
         {
@@ -257,7 +259,7 @@ namespace GCP.Front.Forms
         private void btnEndereco_Click(object sender, EventArgs e)
         {
 
-            if(_enderecoFromCad is null || _enderecoFromCad.IsDisposed)
+            if (_enderecoFromCad is null || _enderecoFromCad.IsDisposed)
             {
                 _enderecoFromCad = new EnderecoForm(_endereco, txtFullEndereco);
                 _enderecoFromCad.Show();
@@ -436,8 +438,8 @@ namespace GCP.Front.Forms
 
         private void btnEnderecoAlt_Click(object sender, EventArgs e)
         {
-            
-            if(_enderecoFromAlt is null || _enderecoFromAlt.IsDisposed)
+
+            if (_enderecoFromAlt is null || _enderecoFromAlt.IsDisposed)
             {
                 _enderecoFromAlt = new EnderecoForm(_endereco, txtFullEnderecoAlt);
                 _enderecoFromAlt.Show();
@@ -446,7 +448,21 @@ namespace GCP.Front.Forms
             {
                 _enderecoFromAlt.BringToFront();
             }
-           
+
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            if(_relatorioClienteForm == null || _relatorioClienteForm.IsDisposed)
+            {
+                _relatorioClienteForm = new RelatorioClientesForm(_clienteServices);
+                _relatorioClienteForm.Show();
+            }
+            else
+            {
+                _relatorioClienteForm.BringToFront();
+            }
+            
         }
     }
 }

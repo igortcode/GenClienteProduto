@@ -24,11 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Report\ClienteReport.rdlc" />
     <None Remove="Report\ProdutoReport.rdlc" />
     <None Remove="Report\VendaReport.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Report\ClienteReport.rdlc" />
     <EmbeddedResource Include="Report\ProdutoReport.rdlc" />
     <EmbeddedResource Include="Report\VendaReport.rdlc" />
   </ItemGroup>

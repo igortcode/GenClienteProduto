@@ -67,6 +67,7 @@ namespace GCP.Front.Forms
             btnRemover = new Button();
             btnSalvar = new Button();
             btnVoltarEdit = new Button();
+            btnRelatorio = new Button();
             tabControlCliente.SuspendLayout();
             tabList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dtGridCliente).BeginInit();
@@ -89,6 +90,7 @@ namespace GCP.Front.Forms
             // 
             // tabList
             // 
+            tabList.Controls.Add(btnRelatorio);
             tabList.Controls.Add(btnAtualizarList);
             tabList.Controls.Add(btnPesquisa);
             tabList.Controls.Add(txtPesquisa);
@@ -457,6 +459,16 @@ namespace GCP.Front.Forms
             btnVoltarEdit.UseVisualStyleBackColor = true;
             btnVoltarEdit.Click += btnVoltarEdit_Click_1;
             // 
+            // btnRelatorio
+            // 
+            btnRelatorio.Location = new Point(6, 488);
+            btnRelatorio.Name = "btnRelatorio";
+            btnRelatorio.Size = new Size(90, 29);
+            btnRelatorio.TabIndex = 5;
+            btnRelatorio.Text = "Relatório";
+            btnRelatorio.UseVisualStyleBackColor = true;
+            btnRelatorio.Click += btnRelatorio_Click;
+            // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -520,5 +532,6 @@ namespace GCP.Front.Forms
         private Label label9;
         private Label label10;
         private TextBox txtNomeAlt;
+        private Button btnRelatorio;
     }
 }
