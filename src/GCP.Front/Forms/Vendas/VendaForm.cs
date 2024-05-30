@@ -567,5 +567,27 @@ namespace GCP.Front.Forms
                 _relatorioVenadasForm.BringToFront();
             }
         }
+
+        private void btnVisualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtGridVenda.CurrentRow.Cells[0].Value != null)
+                {
+                    (tabEdit as Control).Enabled = true;
+
+                    var id = (int)dtGridVenda.CurrentRow.Cells[0].Value;
+
+                    PreencherAlterar(_vendaServices.GetById(id));
+
+                    tabControlVenda.SelectedTab = tabEdit;
+                    gbAlterar.Enabled = true;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Não foi possível buscar a venda.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

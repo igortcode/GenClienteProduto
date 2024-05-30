@@ -58,8 +58,8 @@ namespace GCP.Core.Entities
             ValidationsHelper.StringValidate(nome, "Nome", 200);
             ValidationsHelper.StringValidate(codigo, "Código", 200);
             ValidationsHelper.StringValidate(descricao, "Descrição", 1000);
-            DomainExceptionValidate.When(preco <= 0, "Preço inválido. Deve ser maior ou igual a zero.");
-            DomainExceptionValidate.When(quantidade <= 0, "Quantidade inválida. Deve ser maior ou igual a zero.");
+            DomainExceptionValidate.When(preco <= 0, "Preço inválido. Deve ser maior do que zero.");
+            DomainExceptionValidate.When(quantidade <= 0, "Quantidade inválida. Deve ser maior do que zero.");
         }
     }
 }
