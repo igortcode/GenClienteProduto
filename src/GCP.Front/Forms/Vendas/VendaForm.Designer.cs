@@ -80,6 +80,7 @@
             label10 = new Label();
             label13 = new Label();
             label14 = new Label();
+            btnVisualizar = new Button();
             tabControlVenda.SuspendLayout();
             tabAdd.SuspendLayout();
             gbVenda.SuspendLayout();
@@ -358,6 +359,7 @@
             // 
             // tabList
             // 
+            tabList.Controls.Add(btnVisualizar);
             tabList.Controls.Add(btnRelatorio);
             tabList.Controls.Add(btnPesquisa);
             tabList.Controls.Add(txtPesquisa);
@@ -372,7 +374,7 @@
             // 
             // btnRelatorio
             // 
-            btnRelatorio.Location = new Point(843, 491);
+            btnRelatorio.Location = new Point(6, 492);
             btnRelatorio.Name = "btnRelatorio";
             btnRelatorio.Size = new Size(122, 31);
             btnRelatorio.TabIndex = 4;
@@ -618,6 +620,16 @@
             label14.TabIndex = 13;
             label14.Text = "Nome:";
             // 
+            // btnVisualizar
+            // 
+            btnVisualizar.Location = new Point(831, 492);
+            btnVisualizar.Name = "btnVisualizar";
+            btnVisualizar.Size = new Size(122, 31);
+            btnVisualizar.TabIndex = 5;
+            btnVisualizar.Text = "Visualizar";
+            btnVisualizar.UseVisualStyleBackColor = true;
+            btnVisualizar.Click += btnVisualizar_Click;
+            // 
             // VendaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -700,5 +712,6 @@
         private TextBox txtDataVisualizar;
         private Label label18;
         private Button btnVoltar;
+        private Button btnVisualizar;
     }
 }

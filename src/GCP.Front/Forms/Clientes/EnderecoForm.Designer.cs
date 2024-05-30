@@ -226,7 +226,7 @@
             Controls.Add(Cep);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "EnderecoForm";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Endereço";
             ((System.ComponentModel.ISupportInitialize)pbLoading).EndInit();
             ResumeLayout(false);
