@@ -15,7 +15,7 @@ Informações:
     
     - Arquitetura e Recursos utilizados:
         * Arquitetura Onion.
-        * Conseitos SOLID e DDD.
+        * Conceitos SOLID e DDD.
         * Testes de Unidade
         * Micro ORM Dapper
         * .Net 8
